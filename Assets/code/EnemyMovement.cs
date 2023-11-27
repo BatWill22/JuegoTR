@@ -10,6 +10,7 @@ public class EnemyMovement : MonoBehaviour
 
     public LayerMask groundLayer;
     public LayerMask wallLayer;
+    public LayerMask enemyLayer;
 
     private bool isTouchingGround = true;
     private bool isCheckGrounded = false;
@@ -53,10 +54,11 @@ public class EnemyMovement : MonoBehaviour
 
 
         // Check for changes in the environment
+        // Debug.Log("Collider: " + enemyCollider.IsTouchingLayers(enemyLayer)); 
         if ((!isTouchingGround || isWallOnLeft || isWallOnRight) && (groundTimer <= 0f))
         {
             // Change direction
-            moveRight = !moveRight;
+            ChangeDirection();
             if (!isTouchingGround)
             {
                 groundTimer = maxGroundTime;
@@ -86,9 +88,14 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    public void ChangeDirection()
+    {
+        moveRight = !moveRight;
+    }
+
     public void PushBack(Vector2 pushDirection, float pushForce)
     {
-        Debug.Log("HOLAAAAAAAAAA");
+        // Debug.Log("HOLAAAAAAAAAA");
         // Cancel out the current velocity to ensure accurate pushing
         rb.velocity = Vector2.zero;
 
@@ -96,4 +103,29 @@ public class EnemyMovement : MonoBehaviour
         rb.AddForce(pushDirection * pushForce, ForceMode2D.Impulse);
         activateMovement = false;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            ChangeDirection();
+        }
+    }
+
+    // private bool IsTouchingOtherEnemy()
+    // {
+    //     // Use a circle cast to check if there's another enemy in the current movement direction
+    //     Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 1f, enemyLayer);
+
+    //     // Check if any of the colliders belong to an enemy (excluding the current enemy)
+    //     foreach (Collider2D collider in colliders)
+    //     {
+    //         if (collider.CompareTag("Enemy") && collider.gameObject != gameObject)
+    //         {
+    //             return true;
+    //         }
+    //     }
+
+    //     return false;
+    // }
 }

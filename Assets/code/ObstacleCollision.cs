@@ -2,14 +2,26 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
+
+    public PlayerHealth playerHealth;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+
+        if (playerHealth != null)
         {
-            PlayerMovement player = collision.gameObject.GetComponent<PlayerMovement>();
-            if (player != null)
+            // Call the TakeDamage function with the desired damage amount
+            playerHealth.TakeDamage(1);
+            int health = playerHealth.currentHealth;
+            int maxHealth = playerHealth.maxHealth;
+            if (collision.gameObject.CompareTag("Player") && (health != 0) && (health != maxHealth))
             {
-                player.ResetToLastCheckZonePosition(); // Reset to the last ground position
+                PlayerMovement player = collision.gameObject.GetComponent<PlayerMovement>();
+                if (player != null)
+                {
+                    player.ResetToLastCheckZonePosition(); // Reset to the last ground position
+                }
             }
         }
     }

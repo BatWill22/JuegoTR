@@ -225,8 +225,8 @@ public class PlayerMovement : MonoBehaviour
 
             if (!activateMovement)
             {
-                Debug.Log(pushDirectionPlayer);
-                Debug.Log("velocitat:"+rb.velocity.x); 
+                // Debug.Log(pushDirectionPlayer);
+                // Debug.Log("velocitat:"+rb.velocity.x); 
                 rb.velocity = knockBackVelocity;
             }
             else if (isTouchingWall && !isGrounded && isWallSliding && !wallJumpCooldownActive && !isDashing) //movement in wallsliding
@@ -407,7 +407,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void KnockBack(Vector2 pushDirection, float pushForce)
     {
-        Debug.Log("FUNCIONAA");
+        // Debug.Log("FUNCIONAA");
         // Cancel out the current velocity to ensure accurate pushing
         rb.velocity = Vector2.zero;
 
