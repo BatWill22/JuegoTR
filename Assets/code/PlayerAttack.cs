@@ -22,7 +22,7 @@ public class PlayerAttack : MonoBehaviour
     private bool canAttack = true; // Variable to track if the player can currently attack
 
     // Adjust this value based on your desired cooldown time (in seconds)
-    public float attackCooldown = 1.5f;
+    public float attackCooldown = 0.75f;
 
     // Add reference to your attack sound effect
     // public AudioClip attackSound;
@@ -79,6 +79,14 @@ public class PlayerAttack : MonoBehaviour
     private void AttackRight()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, attackRange, enemyLayer);
+        
+        // Adjust this force value based on your game's requirements
+        float pushForce = 3.5f;
+
+        // Calculate the direction to push the enemy
+        Vector2 pushDirection = Vector2.right;
+
+        playerMovement.KnockBack(pushDirection, pushForce);
 
         if (hit.collider != null)
         {
@@ -87,15 +95,8 @@ public class PlayerAttack : MonoBehaviour
 
             if (enemy != null)
             {
-                // Adjust this force value based on your game's requirements
-                float pushForce = 3.5f;
-
-                // Calculate the direction to push the enemy
-                Vector2 pushDirection = Vector2.right;
-
                 // Apply force to the enemy
                 enemy.PushBack(pushDirection, pushForce);
-                playerMovement.KnockBack(pushDirection, pushForce);
             }
         }
     }
@@ -103,6 +104,12 @@ public class PlayerAttack : MonoBehaviour
     private void AttackLeft()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, attackRange, enemyLayer);
+        // Adjust this force value based on your game's requirements
+        float pushForce = 3.5f;
+
+        // Calculate the direction to push the enemy
+        Vector2 pushDirection = Vector2.left;
+        playerMovement.KnockBack(pushDirection, pushForce);
 
         if (hit.collider != null)
         {
@@ -111,15 +118,8 @@ public class PlayerAttack : MonoBehaviour
 
             if (enemy != null)
             {
-                // Adjust this force value based on your game's requirements
-                float pushForce = 3.5f;
-
-                // Calculate the direction to push the enemy
-                Vector2 pushDirection = Vector2.left;
-
                 // Apply force to the enemy
                 enemy.PushBack(pushDirection, pushForce);
-                playerMovement.KnockBack(pushDirection, pushForce);
             }
         }
     }
