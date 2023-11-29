@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private bool hasBeenHit = false;
 
     private bool activateMovement = true; //variable to activate movement on x after knockback
-    // private bool moveJustX = false; //for when a player gets knocked back in y axis, to change just x velocity
+    private bool moveJustX = false; //for when a player gets knocked back in y axis, to change just x velocity
     
     public int facingX = 1; // -1 for left, 1 for right
     public int facingY = 0; // -1 for down, 1 for up, 0 for no direction
@@ -211,7 +211,6 @@ public class PlayerMovement : MonoBehaviour
                     keepJumping = true;
                     jumpTimer = 0f;
                 }
-                //oiasohafaousghoagewhwewenhhenjerhjhhjiowhgowjhneogjwbneojbhgwiebgijuwbebgwouebgwiouebhgiwueb
                 rb.velocity = velocity;
             }
 
@@ -300,7 +299,12 @@ public class PlayerMovement : MonoBehaviour
                     }
             }
 
-            //oiasohafaousghoagewhwewenhhenjerhjhhjiowhgowjhneogjwbneojbhgwiebgijuwbebgwouebgwiouebhgiwueb
+            //oiasohafaousghoagewhwewenhhenjerhjhhjiowhgowjhneogjwbneojbhgwiebgijuwbebgwouebgwiouebhgiwueboiasohafaousghoagewhwewenhhenjerhjhhjiowhgowjhneogjwbneojbhgwiebgijuwbebgwouebgwiouebhgiwueb
+            if (moveJustX)
+            {
+                velocity.y = knockBackVelocity.y;
+            }
+            
             rb.velocity = velocity;
 
             // Handle wall jump cooldown
@@ -313,12 +317,13 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
 
-            if (!activateMovement)
+            if (!activateMovement || moveJustX)
             {
                 timeSinceKnockBack += Time.deltaTime;
                 if (timeSinceKnockBack >= knockBackCooldown)
                 {
                     activateMovement = true;
+                    moveJustX = false;
                     timeSinceKnockBack = 0f;
                 }
             }
@@ -439,8 +444,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("pushdirectionY: " + pushDirectionPlayerY);
             knockBackVelocity = new Vector2(rb.velocity.x,-pushDirectionPlayerY * Mathf.Abs(rb.velocity.y) *3 /*+ pushForcePlayer*/);
-            activateMovement = false;
-            // moveJustX = true;
+            moveJustX = true;
         }
     }
 
