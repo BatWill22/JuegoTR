@@ -178,11 +178,14 @@ public class PlayerMovement : MonoBehaviour
                 isDashing = false;
             }
 
+            Vector2 velocity = rb.velocity;
+
             if (Input.GetKeyDown(KeyCode.Space)) //When press space down
             {
                 if (isGrounded)
                 {
-                    rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                    velocity = new Vector2(rb.velocity.x, jumpForce);
+
                     keepJumping = true;
                     jumpTimer = 0f;
                 }
@@ -191,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
                     Vector2 wallJumpDirection = isWallOnRight ? Vector2.left : Vector2.right;
                     isWallSliding = false;
                     jumpedFromRight = isWallOnRight;
-                    rb.velocity = wallJumpDirection * jumpForce;
+                    velocity = wallJumpDirection * jumpForce;
                     wallJumpCooldownActive = true;
                     timeSinceWallJump = 0f;
                     keepJumping = true;
@@ -204,10 +207,12 @@ public class PlayerMovement : MonoBehaviour
                         wallJumpCooldownActive = false;
                     }
                     remainDoubleJump = false;
-                    rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                    velocity = new Vector2(rb.velocity.x, jumpForce);
                     keepJumping = true;
                     jumpTimer = 0f;
                 }
+                //oiasohafaousghoagewhwewenhhenjerhjhhjiowhgowjhneogjwbneojbhgwiebgijuwbebgwouebgwiouebhgiwueb
+                rb.velocity = velocity;
             }
 
             if (canWallJumpAndSlide)
@@ -229,15 +234,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 // Debug.Log(pushDirectionPlayer);
                 // Debug.Log("velocitat:"+rb.velocity.x); 
-                rb.velocity = knockBackVelocity;
+                velocity = knockBackVelocity;
             }
-            // else if (moveJustX)
-            // {
-            //     rb.velocity = = new Vector2(, );
-            // }
             else if (isTouchingWall && !isGrounded && isWallSliding && !wallJumpCooldownActive && !isDashing) //movement in wallsliding
             {
-                rb.velocity = new Vector2(0f, -wallSlideSpeed);
+                velocity = new Vector2(0f, -wallSlideSpeed);
             }
             else if (keepJumping && Input.GetKey(KeyCode.Space) && !isDashing) //movement in jumping
             {
@@ -247,11 +248,11 @@ public class PlayerMovement : MonoBehaviour
                     {
                         if (isWallOnRight || jumpedFromRight)
                         {
-                            rb.velocity = new Vector2(-wallJumpBoost * moveSpeed, (2) * jumpForce);
+                            velocity = new Vector2(-wallJumpBoost * moveSpeed, (2) * jumpForce);
                         }
                         else
                         {
-                            rb.velocity = new Vector2(wallJumpBoost * moveSpeed, (2) * jumpForce);
+                            velocity = new Vector2(wallJumpBoost * moveSpeed, (2) * jumpForce);
                         }
                     }
                     else
@@ -259,15 +260,15 @@ public class PlayerMovement : MonoBehaviour
                         float horizontalVelocity = horizontalInput * moveSpeed;
                         if (isWallOnRight)
                         {
-                            rb.velocity = new Vector2(Mathf.Min(horizontalVelocity, 0f), (2) * jumpForce);
+                            velocity = new Vector2(Mathf.Min(horizontalVelocity, 0f), (2) * jumpForce);
                         }
                         else if (isWallOnLeft)
                         {
-                            rb.velocity = new Vector2(Mathf.Max(horizontalVelocity, 0f), (2) * jumpForce);
+                            velocity = new Vector2(Mathf.Max(horizontalVelocity, 0f), (2) * jumpForce);
                         }
                         else
                         {
-                            rb.velocity = new Vector2(horizontalVelocity, (2) * jumpForce);
+                            velocity = new Vector2(horizontalVelocity, (2) * jumpForce);
                         }
                     }
                     jumpTimer += Time.deltaTime;
@@ -279,25 +280,28 @@ public class PlayerMovement : MonoBehaviour
             }
             else if (canDash && isDashing && (dashCooldownTimer <= dashCooldown))
             {
-                rb.velocity = new Vector2(rb.velocity.x + (dashForce * facingX), 0);
+                velocity = new Vector2(rb.velocity.x + (dashForce * facingX), 0);
             }
             else //normal walking
             {
                 float horizontalVelocity = horizontalInput * moveSpeed;
                     if (isWallOnRight)
                     {
-                        rb.velocity = new Vector2(Mathf.Min(horizontalVelocity, 0f), rb.velocity.y);
+                        velocity = new Vector2(Mathf.Min(horizontalVelocity, 0f), rb.velocity.y);
                     }
                     else if (isWallOnLeft)
                     {
-                        rb.velocity = new Vector2(Mathf.Max(horizontalVelocity, 0f), rb.velocity.y);
+                        velocity = new Vector2(Mathf.Max(horizontalVelocity, 0f), rb.velocity.y);
                     }
                     else
                     {
                         Vector2 movement = new Vector2(horizontalVelocity, rb.velocity.y);
-                        rb.velocity = movement;
+                        velocity = movement;
                     }
             }
+
+            //oiasohafaousghoagewhwewenhhenjerhjhhjiowhgowjhneogjwbneojbhgwiebgijuwbebgwouebgwiouebhgiwueb
+            rb.velocity = velocity;
 
             // Handle wall jump cooldown
             if (wallJumpCooldownActive)
