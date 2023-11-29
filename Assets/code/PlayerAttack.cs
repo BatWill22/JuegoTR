@@ -97,6 +97,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 // Apply force to the enemy
                 enemy.PushBack(pushDirection, pushForce);
+                playerMovement.KnockBack(pushDirection, pushForce);
             }
         }
     }
@@ -120,6 +121,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 // Apply force to the enemy
                 enemy.PushBack(pushDirection, pushForce);
+                playerMovement.KnockBack(pushDirection, pushForce);
             }
         }
     }
