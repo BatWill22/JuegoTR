@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool canWallJumpAndSlide = false; // New variable for enabling/disabling wall jump and slide
     public bool canDoubleJump = false;
-    public bool canDash = true; // Can dash
+    public bool canDash = false; // Can dash
 
     private Rigidbody2D rb;
     private Collider2D playerCollider;
@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private bool hasBeenHit = false;
 
     private bool activateMovement = true; //variable to activate movement on x after knockback
+    // private bool moveJustX = false; //for when a player gets knocked back in y axis, to change just x velocity
     
     public int facingX = 1; // -1 for left, 1 for right
     public int facingY = 0; // -1 for down, 1 for up, 0 for no direction
@@ -52,12 +53,13 @@ public class PlayerMovement : MonoBehaviour
     private float dashCooldownTimer = 0f; // Dash cooldown timer
     private float dashDurationTimer = 0f; // Dash duration timer
     private float timeSinceKnockBack = 0f;
-    private float knockBackCooldown = 0.1f;
+    private float knockBackCooldown = 0.3f;
 
     public float delayBeforeMove = 1.0f;  // Adjust the delay time as needed
     private float moveTimer = 0f;
 
-    private float pushDirectionPlayer; 
+    private float pushDirectionPlayerX; 
+    private float pushDirectionPlayerY; 
     private float pushForcePlayer;
 
     public void ResetToLastCheckZonePosition()
@@ -229,6 +231,10 @@ public class PlayerMovement : MonoBehaviour
                 // Debug.Log("velocitat:"+rb.velocity.x); 
                 rb.velocity = knockBackVelocity;
             }
+            // else if (moveJustX)
+            // {
+            //     rb.velocity = = new Vector2(, );
+            // }
             else if (isTouchingWall && !isGrounded && isWallSliding && !wallJumpCooldownActive && !isDashing) //movement in wallsliding
             {
                 rb.velocity = new Vector2(0f, -wallSlideSpeed);
@@ -411,12 +417,41 @@ public class PlayerMovement : MonoBehaviour
         // Cancel out the current velocity to ensure accurate pushing
         rb.velocity = Vector2.zero;
 
-        pushDirectionPlayer = Mathf.Sign(pushDirection.x);
+        pushDirectionPlayerX = Mathf.Sign(pushDirection.x);
+        pushDirectionPlayerY = Mathf.Sign(pushDirection.y);
         pushForcePlayer = pushForce;
-
         // Apply the force to push the enemy
         rb.AddForce(pushDirection * pushForce, ForceMode2D.Impulse);
-        knockBackVelocity = new Vector2(-pushDirectionPlayer * Mathf.Abs(rb.velocity.x) *3 /*+ pushForcePlayer*/,rb.velocity.y);
-        activateMovement = false;
+
+        Debug.Log("pushdirectionX: " + pushDirection.x);
+        Debug.Log("pushdirection: " + Vector2.up);
+
+        if (pushDirection.x != 0)
+        {
+            knockBackVelocity = new Vector2(-pushDirectionPlayerX * Mathf.Abs(rb.velocity.x) *3 /*+ pushForcePlayer*/,rb.velocity.y);
+            activateMovement = false;
+        }
+        else 
+        {
+            Debug.Log("pushdirectionY: " + pushDirectionPlayerY);
+            knockBackVelocity = new Vector2(rb.velocity.x,-pushDirectionPlayerY * Mathf.Abs(rb.velocity.y) *3 /*+ pushForcePlayer*/);
+            activateMovement = false;
+            // moveJustX = true;
+        }
+    }
+
+    public void ActivateDoubleJump(bool activate)
+    {
+        canDoubleJump = activate;
+    }
+
+    public void ActivateDash(bool activate)
+    {
+        canDash = activate;
+    }
+
+    public void ActivateWalljump(bool activate)
+    {
+        canWallJumpAndSlide = activate;
     }
 }

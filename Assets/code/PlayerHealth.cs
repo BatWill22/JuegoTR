@@ -6,6 +6,7 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 7;
     public int currentHealth;
     public Vector2 respawnCoordinates = new Vector2(0, 1);
+    public Vector2 checkpointCoordinates = new Vector2(-81, 29);
     private bool invincible = false;
     public float invincibilityDuration = 1.5f;
 
@@ -47,7 +48,27 @@ public class PlayerHealth : MonoBehaviour
     private void Respawn() 
     {
         // Move the player to the respawn coordinates
-        transform.position = new Vector3(respawnCoordinates.x, respawnCoordinates.y, transform.position.z);
+        // if (playerM != null)
+        // {
+            Debug.Log("Detecta playerMovement");
+            bool dash = GetComponent<PlayerMovement>().canDash;
+            bool walljump = GetComponent<PlayerMovement>().canWallJumpAndSlide;
+            bool doubleJump = GetComponent<PlayerMovement>().canDoubleJump;
+            if(dash && walljump && doubleJump /*&& GreenDoorOpen && BlueDoorOpen && RedDoorOpen*/)
+            {
+                transform.position = new Vector3(checkpointCoordinates.x, checkpointCoordinates.y, transform.position.z);
+                Debug.Log("tp a checkpoint");
+            }
+            else
+            {
+                transform.position = new Vector3(respawnCoordinates.x, respawnCoordinates.y, transform.position.z);
+                Debug.Log("tp a 0,0");
+            }
+        // }
+        // else
+        // {
+        //     transform.position = new Vector3(respawnCoordinates.x, respawnCoordinates.y, transform.position.z);
+        // }
 
         // Reset the player's health to maximum
         currentHealth = maxHealth;
