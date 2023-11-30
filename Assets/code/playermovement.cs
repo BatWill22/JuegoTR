@@ -18,6 +18,10 @@ public class PlayerMovement : MonoBehaviour
     public bool canDoubleJump = false;
     public bool canDash = false; // Can dash
 
+    public bool hasRedKey = false; // New variable for enabling/disabling wall jump and slide
+    public bool hasGreenKey = false;
+    public bool hasBlueKey = false; // Can dash
+
     private Rigidbody2D rb;
     private Collider2D playerCollider;
 
@@ -461,5 +465,20 @@ public class PlayerMovement : MonoBehaviour
     public void ActivateWalljump(bool activate)
     {
         canWallJumpAndSlide = activate;
+    }
+
+    public void ActivateRedKey(bool activate)
+    {
+        hasRedKey = activate;
+    }
+
+    public void ActivateGreenKey(bool activate)
+    {
+        hasGreenKey = activate;
+    }
+
+    public void ActivateBlueKey(bool activate)
+    {
+        hasBlueKey = activate;
     }
 }

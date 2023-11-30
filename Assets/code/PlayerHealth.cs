@@ -57,7 +57,7 @@ public class PlayerHealth : MonoBehaviour
             bool dash = GetComponent<PlayerMovement>().canDash;
             bool walljump = GetComponent<PlayerMovement>().canWallJumpAndSlide;
             bool doubleJump = GetComponent<PlayerMovement>().canDoubleJump;
-            if(dash && walljump && doubleJump /*&& GreenDoorOpen && BlueDoorOpen && RedDoorOpen*/)
+            if(dash && walljump && doubleJump && false/*&& GreenDoorOpen && BlueDoorOpen && RedDoorOpen*/)
             {
                 transform.position = new Vector3(checkpointCoordinates.x, checkpointCoordinates.y, transform.position.z);
                 // Debug.Log("tp a checkpoint");
@@ -71,8 +71,39 @@ public class PlayerHealth : MonoBehaviour
                 DashItemScript dashItemScript = FindObjectOfType<DashItemScript>();
                 if (dashItemScript != null)
                 {
-                    Debug.Log("DEVUELVE ITEMS");
+                    Debug.Log("DEVUELVE ITEM DAS");
                     dashItemScript.Respawn();
+                }
+                DoubleJumpItemScript doubleJumpItemScript = FindObjectOfType<DoubleJumpItemScript>();
+                if (doubleJumpItemScript != null)
+                {
+                    Debug.Log("DEVUELVE ITEM DUBEJUM");
+                    doubleJumpItemScript.Respawn();
+                }
+                WalljumpItemScript walljumpItemScript = FindObjectOfType<WalljumpItemScript>();
+                if (walljumpItemScript != null)
+                {
+                    Debug.Log("DEVUELVE ITEM WALJUM");
+                    walljumpItemScript.Respawn();
+                }
+
+                RedKeyItemScript redKeyItemScript = FindObjectOfType<RedKeyItemScript>();
+                if (redKeyItemScript != null)
+                {
+                    Debug.Log("DEVUELVE ITEM WALJUM");
+                    redKeyItemScript.Respawn();
+                }
+                GreenKeyItemScript greenKeyItemScript = FindObjectOfType<GreenKeyItemScript>();
+                if (greenKeyItemScript != null)
+                {
+                    Debug.Log("DEVUELVE ITEM WALJUM");
+                    greenKeyItemScript.Respawn();
+                }
+                BlueKeyItemScript blueKeyItemScript = FindObjectOfType<BlueKeyItemScript>();
+                if (blueKeyItemScript != null)
+                {
+                    Debug.Log("DEVUELVE ITEM WALJUM");
+                    blueKeyItemScript.Respawn();
                 }
                 // Debug.Log("DEVUELVE ITEMS");
                 // }
