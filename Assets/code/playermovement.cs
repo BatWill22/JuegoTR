@@ -432,8 +432,8 @@ public class PlayerMovement : MonoBehaviour
         // Apply the force to push the enemy
         rb.AddForce(pushDirection * pushForce, ForceMode2D.Impulse);
 
-        Debug.Log("pushdirectionX: " + pushDirection.x);
-        Debug.Log("pushdirection: " + Vector2.up);
+        // Debug.Log("pushdirectionX: " + pushDirection.x);
+        // Debug.Log("pushdirection: " + Vector2.up);
 
         if (pushDirection.x != 0)
         {
@@ -442,7 +442,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else 
         {
-            Debug.Log("pushdirectionY: " + pushDirectionPlayerY);
+            // Debug.Log("pushdirectionY: " + pushDirectionPlayerY);
             knockBackVelocity = new Vector2(rb.velocity.x,-pushDirectionPlayerY * Mathf.Abs(rb.velocity.y) *3 /*+ pushForcePlayer*/);
             moveJustX = true;
         }

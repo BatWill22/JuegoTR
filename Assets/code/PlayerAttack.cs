@@ -10,14 +10,16 @@ public class PlayerAttack : MonoBehaviour
     // Add reference to your Animator component
     // private Animator animator;
     
-    private float attackRange = 3f; // Set your attack range here
+    private float attackRange = 5f; // Set your attack range here
 
     int facingX;
     int facingY;
 
 
     public PlayerMovement playerMovement;
+    public Collider2D playerCollider;
     public LayerMask enemyLayer;
+    public LayerMask obstacleLayer;
 
     private bool canAttack = true; // Variable to track if the player can currently attack
 
@@ -100,6 +102,12 @@ public class PlayerAttack : MonoBehaviour
                 playerMovement.KnockBack(pushDirection, pushForce);
             }
         }
+
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, Vector2.right, attackRange, obstacleLayer);
+        if (hit2.collider != null)
+        {
+            playerMovement.KnockBack(pushDirection, pushForce);
+        }
     }
 
     private void AttackLeft()
@@ -124,11 +132,23 @@ public class PlayerAttack : MonoBehaviour
                 playerMovement.KnockBack(pushDirection, pushForce);
             }
         }
+
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, Vector2.right, attackRange, obstacleLayer);
+        if (hit2.collider != null)
+        {
+            playerMovement.KnockBack(pushDirection, pushForce);
+        }
     }
 
     private void AttackUp()
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, attackRange, enemyLayer);
+
+        // Adjust this force value based on your game's requirements
+        float pushForce = 3.5f;
+
+        // Calculate the direction to push the enemy
+        Vector2 pushDirection = Vector2.up;
 
         if (hit.collider != null)
         {
@@ -137,16 +157,16 @@ public class PlayerAttack : MonoBehaviour
 
             if (enemy != null)
             {
-                // Adjust this force value based on your game's requirements
-                float pushForce = 3.5f;
-
-                // Calculate the direction to push the enemy
-                Vector2 pushDirection = Vector2.up;
-
                 // Apply force to the enemy
                 enemy.PushBack(pushDirection, pushForce);
                 playerMovement.KnockBack(pushDirection, pushForce);
             }
+        }
+
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, Vector2.right, attackRange, obstacleLayer);
+        if (hit2.collider != null)
+        {
+            playerMovement.KnockBack(pushDirection, pushForce);
         }
     }
 
@@ -154,6 +174,12 @@ public class PlayerAttack : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, attackRange, enemyLayer);
 
+        // Adjust this force value based on your game's requirements
+        float pushForce = 3.5f;
+
+        // Calculate the direction to push the enemy
+        Vector2 pushDirection = Vector2.down;
+
         if (hit.collider != null)
         {
             // Enemy detected, push them back
@@ -161,17 +187,33 @@ public class PlayerAttack : MonoBehaviour
 
             if (enemy != null)
             {
-                // Adjust this force value based on your game's requirements
-                float pushForce = 3.5f;
-
-                // Calculate the direction to push the enemy
-                Vector2 pushDirection = Vector2.down;
-
                 // Apply force to the enemy
                 enemy.PushBack(pushDirection, pushForce);
                 playerMovement.KnockBack(pushDirection, pushForce);
             }
         }
+
+        Vector3 rightRaycastOrigin = transform.position + new Vector3(playerCollider.bounds.extents.x, 0f, 0f);
+        Vector3 leftRaycastOrigin = transform.position - new Vector3(playerCollider.bounds.extents.x, 0f, 0f);
+        Vector3 centerRaycastOrigin = transform.position;
+        // Perform raycasts
+        bool rightRaycastHit = Physics2D.Raycast(rightRaycastOrigin, Vector2.down, 5f, obstacleLayer);
+        bool leftRaycastHit = Physics2D.Raycast(leftRaycastOrigin, Vector2.down, 5f, obstacleLayer);
+        bool centerRaycastHit = Physics2D.Raycast(centerRaycastOrigin, Vector2.down, 5f, obstacleLayer);
+
+        if (rightRaycastHit || leftRaycastHit || centerRaycastHit)
+        {
+            Debug.Log("hit2.collider: ");
+            playerMovement.KnockBack(pushDirection, pushForce);
+        }
+
+        // RaycastHit2D hit2 = Physics2D.Raycast(transform.position, Vector2.right, attackRange, obstacleLayer);
+        // Debug.DrawRay(transform.position, Vector2.right * attackRange, Color.red, 0.1f);
+        // Debug.Log("hit2.collider: " + hit2.collider);
+        // if (hit2.collider != null)
+        // {
+        //     playerMovement.KnockBack(pushDirection, pushForce);
+        // }
     }
 
     private IEnumerator AttackCooldown()

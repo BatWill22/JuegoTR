@@ -57,12 +57,12 @@ public class PlayerHealth : MonoBehaviour
             if(dash && walljump && doubleJump /*&& GreenDoorOpen && BlueDoorOpen && RedDoorOpen*/)
             {
                 transform.position = new Vector3(checkpointCoordinates.x, checkpointCoordinates.y, transform.position.z);
-                Debug.Log("tp a checkpoint");
+                // Debug.Log("tp a checkpoint");
             }
             else
             {
                 transform.position = new Vector3(respawnCoordinates.x, respawnCoordinates.y, transform.position.z);
-                Debug.Log("tp a 0,0");
+                // Debug.Log("tp a 0,0");
             }
         // }
         // else
@@ -73,7 +73,7 @@ public class PlayerHealth : MonoBehaviour
         // Reset the player's health to maximum
         currentHealth = maxHealth;
 
-        Debug.Log("Player respawned at coordinates: " + respawnCoordinates);
+        // Debug.Log("Player respawned at coordinates: " + respawnCoordinates);
     }
 
     public void EnemyInteraction(Vector2 pushDirection, float pushForce)
