@@ -114,42 +114,55 @@ public class PlayerAttack : MonoBehaviour
         }
 
         RaycastHit2D hit3 = Physics2D.Raycast(transform.position, Vector2.right, attackRange, doorLayer);
-if (hit.collider != null)
-{
-    // Assuming each door has a unique tag
-    string doorTag = hit.collider.tag;
+        if (hit3.collider != null)
+        {
+            // Assuming each door has a unique tag
+            string doorTag = hit3.collider.tag;
+            Debug.Log("hit3.collider no es null:" + doorTag);
 
-    switch (doorTag)
-    {
-        case "RedDoor":
-            RedDoorObjectScript redDoor = hit.collider.GetComponent<RedDoorObjectScript>();
-            if (redDoor != null)
+            switch (doorTag)
             {
-                redDoor.OpenDoor();
-            }
-            break;
+                case "RedDoor":
+                    RedDoorObjectScript redDoor = hit3.collider.GetComponent<RedDoorObjectScript>();
+                    if (redDoor != null)
+                    {
+                        bool redKey = GetComponent<PlayerMovement>().hasRedKey;
+                        if (redKey)
+                        {
+                            redDoor.OpenDoor();
+                        }
+                    }
+                    break;
 
-        case "GreenDoor":
-            GreenDoorObjectScript greenDoor = hit.collider.GetComponent<GreenDoorObjectScript>();
-            if (greenDoor != null)
-            {
-                greenDoor.OpenDoor();
-            }
-            break;
+                case "GreenDoor":
+                    GreenDoorObjectScript greenDoor = hit3.collider.GetComponent<GreenDoorObjectScript>();
+                    if (greenDoor != null)
+                    {
+                        bool greenKey = GetComponent<PlayerMovement>().hasGreenKey;
+                        if (greenKey)
+                        {
+                            greenDoor.OpenDoor();
+                        }
+                    }
+                    break;
 
-        case "BlueDoor":
-            BlueDoorObjectScript blueDoor = hit.collider.GetComponent<BlueDoorObjectScript>();
-            if (blueDoor != null)
-            {
-                blueDoor.OpenDoor();
-            }
-            break;
+                case "BlueDoor":
+                    BlueDoorObjectScript blueDoor = hit3.collider.GetComponent<BlueDoorObjectScript>();
+                    if (blueDoor != null)
+                    {
+                        bool blueKey = GetComponent<PlayerMovement>().hasBlueKey;
+                        if (blueKey)
+                        {
+                            blueDoor.OpenDoor();
+                        }
+                    }
+                    break;
 
-        default:
-            // Handle other cases or do nothing
-            break;
-    }
-}
+                default:
+                    // Handle other cases or do nothing
+                    break;
+            }
+        }
     }
 
     private void AttackLeft()
@@ -175,10 +188,61 @@ if (hit.collider != null)
             }
         }
 
-        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, Vector2.right, attackRange, obstacleLayer);
+        RaycastHit2D hit2 = Physics2D.Raycast(transform.position, Vector2.left, attackRange, obstacleLayer);
         if (hit2.collider != null)
         {
             playerMovement.KnockBack(pushDirection, pushForce);
+        }
+
+        RaycastHit2D hit3 = Physics2D.Raycast(transform.position, Vector2.left, attackRange, doorLayer);
+        if (hit3.collider != null)
+        {
+            // Assuming each door has a unique tag
+            string doorTag = hit3.collider.tag;
+            Debug.Log("hit3.collider no es null:" + doorTag);
+
+            switch (doorTag)
+            {
+                case "RedDoor":
+                    RedDoorObjectScript redDoor = hit3.collider.GetComponent<RedDoorObjectScript>();
+                    if (redDoor != null)
+                    {
+                        bool redKey = GetComponent<PlayerMovement>().hasRedKey;
+                        if (redKey)
+                        {
+                            redDoor.OpenDoor();
+                        }
+                    }
+                    break;
+
+                case "GreenDoor":
+                    GreenDoorObjectScript greenDoor = hit3.collider.GetComponent<GreenDoorObjectScript>();
+                    if (greenDoor != null)
+                    {
+                        bool greenKey = GetComponent<PlayerMovement>().hasGreenKey;
+                        if (greenKey)
+                        {
+                            greenDoor.OpenDoor();
+                        }
+                    }
+                    break;
+
+                case "BlueDoor":
+                    BlueDoorObjectScript blueDoor = hit3.collider.GetComponent<BlueDoorObjectScript>();
+                    if (blueDoor != null)
+                    {
+                        bool blueKey = GetComponent<PlayerMovement>().hasBlueKey;
+                        if (blueKey)
+                        {
+                            blueDoor.OpenDoor();
+                        }
+                    }
+                    break;
+
+                default:
+                    // Handle other cases or do nothing
+                    break;
+            }
         }
     }
 

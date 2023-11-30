@@ -97,21 +97,44 @@ public class PlayerHealth : MonoBehaviour
                 RedKeyItemScript redKeyItemScript = FindObjectOfType<RedKeyItemScript>();
                 if (redKeyItemScript != null)
                 {
-                    Debug.Log("DEVUELVE ITEM WALJUM");
+                    Debug.Log("DEVUELVE ITEM RED");
                     redKeyItemScript.Respawn();
                 }
                 GreenKeyItemScript greenKeyItemScript = FindObjectOfType<GreenKeyItemScript>();
                 if (greenKeyItemScript != null)
                 {
-                    Debug.Log("DEVUELVE ITEM WALJUM");
+                    Debug.Log("DEVUELVE ITEM GRIN");
                     greenKeyItemScript.Respawn();
                 }
                 BlueKeyItemScript blueKeyItemScript = FindObjectOfType<BlueKeyItemScript>();
                 if (blueKeyItemScript != null)
                 {
-                    Debug.Log("DEVUELVE ITEM WALJUM");
+                    Debug.Log("DEVUELVE ITEM BLU");
                     blueKeyItemScript.Respawn();
                 }
+
+                RedDoorObjectScript redDoorObjectScript = FindObjectOfType<RedDoorObjectScript>();
+                if (redDoorObjectScript != null)
+                {
+                    Debug.Log("DEVUELVE ITEM WALJUM");
+                    redDoorObjectScript.Respawn();
+                }
+                GreenDoorObjectScript greenDoorObjectScript = FindObjectOfType<GreenDoorObjectScript>();
+                if (greenDoorObjectScript != null)
+                {
+                    Debug.Log("DEVUELVE ITEM WALJUM");
+                    greenDoorObjectScript.Respawn();
+                }
+                BlueDoorObjectScript blueDoorObjectScript = FindObjectOfType<BlueDoorObjectScript>();
+                if (blueDoorObjectScript != null)
+                {
+                    Debug.Log("DEVUELVE ITEM WALJUM");
+                    blueDoorObjectScript.Respawn();
+                }
+
+                redDoorOpen = false;
+                greenDoorOpen = false;
+                blueDoorOpen = false;
                 // Debug.Log("DEVUELVE ITEMS");
                 // }
                 // Debug.Log("tp a 0,0");
