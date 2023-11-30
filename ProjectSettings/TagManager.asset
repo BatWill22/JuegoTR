@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - RedDoor
+  - GreenDoor
+  - BlueDoor
   layers:
   - Default
   - TransparentFX
@@ -19,7 +22,7 @@ TagManager:
   - enemy
   - player
   - item
-  - 
+  - door
   - 
   - 
   - 

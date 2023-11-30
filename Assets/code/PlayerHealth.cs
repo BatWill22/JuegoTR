@@ -10,6 +10,10 @@ public class PlayerHealth : MonoBehaviour
     private bool invincible = false;
     public float invincibilityDuration = 1.5f;
 
+    public bool redDoorOpen = false;
+    public bool greenDoorOpen = false;
+    public bool blueDoorOpen = false;
+
     // public DashItemScript dashItemScript;
 
     // Start is called before the first frame update
@@ -57,7 +61,10 @@ public class PlayerHealth : MonoBehaviour
             bool dash = GetComponent<PlayerMovement>().canDash;
             bool walljump = GetComponent<PlayerMovement>().canWallJumpAndSlide;
             bool doubleJump = GetComponent<PlayerMovement>().canDoubleJump;
-            if(dash && walljump && doubleJump && false/*&& GreenDoorOpen && BlueDoorOpen && RedDoorOpen*/)
+            bool redKey = GetComponent<PlayerMovement>().hasRedKey;
+            bool greenKey = GetComponent<PlayerMovement>().hasGreenKey;
+            bool blueKey = GetComponent<PlayerMovement>().hasBlueKey;
+            if(dash && walljump && doubleJump && redKey && greenKey && blueKey && greenDoorOpen && blueDoorOpen && redDoorOpen)
             {
                 transform.position = new Vector3(checkpointCoordinates.x, checkpointCoordinates.y, transform.position.z);
                 // Debug.Log("tp a checkpoint");
@@ -139,5 +146,18 @@ public class PlayerHealth : MonoBehaviour
 
         // End of invincibility
         invincible = false;
+    }
+
+    public void ActivateRedDoor(bool activate)
+    {
+        redDoorOpen = activate;
+    }
+    public void ActivateGreenDoor(bool activate)
+    {
+        greenDoorOpen = activate;
+    }
+    public void ActivateBlueDoor(bool activate)
+    {
+        blueDoorOpen = activate;
     }
 }

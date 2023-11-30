@@ -15,11 +15,15 @@ public class PlayerAttack : MonoBehaviour
     int facingX;
     int facingY;
 
+    public RedDoorObjectScript redDoor;
+    public GreenDoorObjectScript greenDoor;
+    public BlueDoorObjectScript blueDoor;
 
     public PlayerMovement playerMovement;
     public Collider2D playerCollider;
     public LayerMask enemyLayer;
     public LayerMask obstacleLayer;
+    public LayerMask doorLayer;
 
     private bool canAttack = true; // Variable to track if the player can currently attack
 
@@ -108,6 +112,44 @@ public class PlayerAttack : MonoBehaviour
         {
             playerMovement.KnockBack(pushDirection, pushForce);
         }
+
+        RaycastHit2D hit3 = Physics2D.Raycast(transform.position, Vector2.right, attackRange, doorLayer);
+if (hit.collider != null)
+{
+    // Assuming each door has a unique tag
+    string doorTag = hit.collider.tag;
+
+    switch (doorTag)
+    {
+        case "RedDoor":
+            RedDoorObjectScript redDoor = hit.collider.GetComponent<RedDoorObjectScript>();
+            if (redDoor != null)
+            {
+                redDoor.OpenDoor();
+            }
+            break;
+
+        case "GreenDoor":
+            GreenDoorObjectScript greenDoor = hit.collider.GetComponent<GreenDoorObjectScript>();
+            if (greenDoor != null)
+            {
+                greenDoor.OpenDoor();
+            }
+            break;
+
+        case "BlueDoor":
+            BlueDoorObjectScript blueDoor = hit.collider.GetComponent<BlueDoorObjectScript>();
+            if (blueDoor != null)
+            {
+                blueDoor.OpenDoor();
+            }
+            break;
+
+        default:
+            // Handle other cases or do nothing
+            break;
+    }
+}
     }
 
     private void AttackLeft()
