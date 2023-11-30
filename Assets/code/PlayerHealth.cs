@@ -10,10 +10,13 @@ public class PlayerHealth : MonoBehaviour
     private bool invincible = false;
     public float invincibilityDuration = 1.5f;
 
+    // public DashItemScript dashItemScript;
+
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
+        // dashItemScript = GetComponent<DashItemScript>();
     }
 
     // Public function to decrease player's health
@@ -62,6 +65,17 @@ public class PlayerHealth : MonoBehaviour
             else
             {
                 transform.position = new Vector3(respawnCoordinates.x, respawnCoordinates.y, transform.position.z);
+                // if (dashItemScript != null)
+                // {
+                // Call the Respawn method from DashItemScript
+                DashItemScript dashItemScript = FindObjectOfType<DashItemScript>();
+                if (dashItemScript != null)
+                {
+                    Debug.Log("DEVUELVE ITEMS");
+                    dashItemScript.Respawn();
+                }
+                // Debug.Log("DEVUELVE ITEMS");
+                // }
                 // Debug.Log("tp a 0,0");
             }
         // }
