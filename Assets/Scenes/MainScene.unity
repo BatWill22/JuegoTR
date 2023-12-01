@@ -3808,6 +3808,7 @@ GameObject:
   - component: {fileID: 87565801}
   - component: {fileID: 87565800}
   - component: {fileID: 87565799}
+  - component: {fileID: 87565802}
   m_Layer: 13
   m_Name: RedDoor
   m_TagString: RedDoor
@@ -3921,12 +3922,26 @@ Transform:
   m_GameObject: {fileID: 87565798}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.76, y: 14.04, z: 0}
+  m_LocalPosition: {x: 14.45, y: 13.74, z: 0}
   m_LocalScale: {x: 0.68440187, y: 3.9800837, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &87565802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87565798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc0410025e5075348b99dc378bb3d213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redDoorObject: {fileID: 87565798}
+  playerHealth: {fileID: 1226410974}
 --- !u!1 &96359844
 GameObject:
   m_ObjectHideFlags: 0
@@ -9208,6 +9223,7 @@ GameObject:
   - component: {fileID: 245253515}
   - component: {fileID: 245253513}
   - component: {fileID: 245253518}
+  - component: {fileID: 245253519}
   m_Layer: 10
   m_Name: Square (5)
   m_TagString: Enemy
@@ -9236,7 +9252,7 @@ MonoBehaviour:
     m_Bits: 64
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!50 &245253515
 Rigidbody2D:
   serializedVersion: 4
@@ -9366,6 +9382,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.15999998, y: 0.15999998}
   m_Direction: 0
+--- !u!114 &245253519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245253512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9ee3d187de156489abdbf64fac1310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxEnemyHealth: 3
+  currentEnemyHealth: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  initialCoordinates: {x: 0, y: 0}
 --- !u!1 &246026489
 GameObject:
   m_ObjectHideFlags: 0
@@ -21704,7 +21738,7 @@ Transform:
   m_GameObject: {fileID: 643448309}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.8445, y: 14.0864, z: 0}
+  m_LocalPosition: {x: 8.35, y: 13.9, z: 0}
   m_LocalScale: {x: 0.68440187, y: 3.9800837, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21722,8 +21756,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bfea8832a137d84cbbb2908ba86057b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blueDoorObject: {fileID: 0}
-  playerHealth: {fileID: 0}
+  blueDoorObject: {fileID: 643448309}
+  playerHealth: {fileID: 1226410974}
 --- !u!1 &644474661
 GameObject:
   m_ObjectHideFlags: 0
@@ -24957,6 +24991,7 @@ GameObject:
   - component: {fileID: 731019054}
   - component: {fileID: 731019052}
   - component: {fileID: 731019057}
+  - component: {fileID: 731019058}
   m_Layer: 10
   m_Name: Square (2)
   m_TagString: Enemy
@@ -24985,7 +25020,7 @@ MonoBehaviour:
     m_Bits: 64
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!50 &731019054
 Rigidbody2D:
   serializedVersion: 4
@@ -25115,6 +25150,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.15999998, y: 0.15999998}
   m_Direction: 0
+--- !u!114 &731019058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731019051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9ee3d187de156489abdbf64fac1310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxEnemyHealth: 3
+  currentEnemyHealth: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  initialCoordinates: {x: 0, y: 0}
 --- !u!1 &731176592
 GameObject:
   m_ObjectHideFlags: 0
@@ -30014,6 +30067,7 @@ GameObject:
   - component: {fileID: 886016123}
   - component: {fileID: 886016121}
   - component: {fileID: 886016126}
+  - component: {fileID: 886016127}
   m_Layer: 10
   m_Name: Square (7)
   m_TagString: Enemy
@@ -30042,7 +30096,7 @@ MonoBehaviour:
     m_Bits: 64
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!50 &886016123
 Rigidbody2D:
   serializedVersion: 4
@@ -30172,6 +30226,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.15999998, y: 0.15999998}
   m_Direction: 0
+--- !u!114 &886016127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886016120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9ee3d187de156489abdbf64fac1310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxEnemyHealth: 3
+  currentEnemyHealth: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  initialCoordinates: {x: 0, y: 0}
 --- !u!1 &892108918
 GameObject:
   m_ObjectHideFlags: 0
@@ -30445,6 +30517,7 @@ GameObject:
   - component: {fileID: 908022660}
   - component: {fileID: 908022658}
   - component: {fileID: 908022663}
+  - component: {fileID: 908022664}
   m_Layer: 10
   m_Name: Square (3)
   m_TagString: Enemy
@@ -30473,7 +30546,7 @@ MonoBehaviour:
     m_Bits: 64
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!50 &908022660
 Rigidbody2D:
   serializedVersion: 4
@@ -30603,6 +30676,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.15999998, y: 0.15999998}
   m_Direction: 0
+--- !u!114 &908022664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908022657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9ee3d187de156489abdbf64fac1310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxEnemyHealth: 3
+  currentEnemyHealth: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  initialCoordinates: {x: 0, y: 0}
 --- !u!1 &912921432
 GameObject:
   m_ObjectHideFlags: 0
@@ -36824,6 +36915,7 @@ GameObject:
   - component: {fileID: 1130181252}
   - component: {fileID: 1130181250}
   - component: {fileID: 1130181255}
+  - component: {fileID: 1130181256}
   m_Layer: 10
   m_Name: Square (6)
   m_TagString: Enemy
@@ -36852,7 +36944,7 @@ MonoBehaviour:
     m_Bits: 64
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!50 &1130181252
 Rigidbody2D:
   serializedVersion: 4
@@ -36982,6 +37074,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.15999998, y: 0.15999998}
   m_Direction: 0
+--- !u!114 &1130181256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130181249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9ee3d187de156489abdbf64fac1310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxEnemyHealth: 3
+  currentEnemyHealth: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  initialCoordinates: {x: 0, y: 0}
 --- !u!1 &1136167704
 GameObject:
   m_ObjectHideFlags: 0
@@ -37125,6 +37235,7 @@ GameObject:
   - component: {fileID: 1137391710}
   - component: {fileID: 1137391708}
   - component: {fileID: 1137391713}
+  - component: {fileID: 1137391714}
   m_Layer: 10
   m_Name: Square (1)
   m_TagString: Enemy
@@ -37153,7 +37264,7 @@ MonoBehaviour:
     m_Bits: 64
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!50 &1137391710
 Rigidbody2D:
   serializedVersion: 4
@@ -37283,6 +37394,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.15999998, y: 0.15999998}
   m_Direction: 0
+--- !u!114 &1137391714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137391707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9ee3d187de156489abdbf64fac1310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxEnemyHealth: 3
+  currentEnemyHealth: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  initialCoordinates: {x: 0, y: 0}
 --- !u!1 &1142793014
 GameObject:
   m_ObjectHideFlags: 0
@@ -40223,9 +40352,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f354c21c011f87c4e8922bf995151be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redDoor: {fileID: 0}
-  greenDoor: {fileID: 0}
-  blueDoor: {fileID: 0}
+  redDoor: {fileID: 87565802}
+  greenDoor: {fileID: 1345598551}
+  blueDoor: {fileID: 643448313}
   playerMovement: {fileID: 1226410969}
   playerCollider: {fileID: 1226410976}
   enemyLayer:
@@ -40236,7 +40365,7 @@ MonoBehaviour:
     m_Bits: 128
   doorLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   attackCooldown: 0.75
 --- !u!114 &1226410969
 MonoBehaviour:
@@ -42628,6 +42757,7 @@ GameObject:
   - component: {fileID: 1276334061}
   - component: {fileID: 1276334059}
   - component: {fileID: 1276334064}
+  - component: {fileID: 1276334065}
   m_Layer: 10
   m_Name: Square (9)
   m_TagString: Enemy
@@ -42656,7 +42786,7 @@ MonoBehaviour:
     m_Bits: 64
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!50 &1276334061
 Rigidbody2D:
   serializedVersion: 4
@@ -42786,6 +42916,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.15999998, y: 0.15999998}
   m_Direction: 0
+--- !u!114 &1276334065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276334058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9ee3d187de156489abdbf64fac1310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxEnemyHealth: 3
+  currentEnemyHealth: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  initialCoordinates: {x: 0, y: 0}
 --- !u!1 &1280216820
 GameObject:
   m_ObjectHideFlags: 0
@@ -44634,6 +44782,7 @@ GameObject:
   - component: {fileID: 1345598550}
   - component: {fileID: 1345598549}
   - component: {fileID: 1345598548}
+  - component: {fileID: 1345598551}
   m_Layer: 13
   m_Name: GreenDoor
   m_TagString: GreenDoor
@@ -44753,6 +44902,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1345598551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1345598547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 603b5a88da525604eb4ef35a94f056f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  greenDoorObject: {fileID: 1345598547}
+  playerHealth: {fileID: 1226410974}
 --- !u!1 &1346796681
 GameObject:
   m_ObjectHideFlags: 0
@@ -44896,6 +45059,7 @@ GameObject:
   - component: {fileID: 1349970122}
   - component: {fileID: 1349970120}
   - component: {fileID: 1349970125}
+  - component: {fileID: 1349970126}
   m_Layer: 10
   m_Name: Square (14)
   m_TagString: Enemy
@@ -44924,7 +45088,7 @@ MonoBehaviour:
     m_Bits: 64
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!50 &1349970122
 Rigidbody2D:
   serializedVersion: 4
@@ -45054,6 +45218,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.15999998, y: 0.15999998}
   m_Direction: 0
+--- !u!114 &1349970126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1349970119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9ee3d187de156489abdbf64fac1310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxEnemyHealth: 3
+  currentEnemyHealth: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  initialCoordinates: {x: 0, y: 0}
 --- !u!1 &1357570694
 GameObject:
   m_ObjectHideFlags: 0
@@ -50625,6 +50807,7 @@ GameObject:
   - component: {fileID: 1552957465}
   - component: {fileID: 1552957463}
   - component: {fileID: 1552957468}
+  - component: {fileID: 1552957469}
   m_Layer: 10
   m_Name: Square (8)
   m_TagString: Enemy
@@ -50653,7 +50836,7 @@ MonoBehaviour:
     m_Bits: 64
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!50 &1552957465
 Rigidbody2D:
   serializedVersion: 4
@@ -50783,6 +50966,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.15999998, y: 0.15999998}
   m_Direction: 0
+--- !u!114 &1552957469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1552957462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9ee3d187de156489abdbf64fac1310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxEnemyHealth: 3
+  currentEnemyHealth: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  initialCoordinates: {x: 0, y: 0}
 --- !u!1 &1554133996
 GameObject:
   m_ObjectHideFlags: 0
@@ -55017,6 +55218,7 @@ GameObject:
   - component: {fileID: 1745382149}
   - component: {fileID: 1745382147}
   - component: {fileID: 1745382152}
+  - component: {fileID: 1745382153}
   m_Layer: 10
   m_Name: Square (4)
   m_TagString: Enemy
@@ -55045,7 +55247,7 @@ MonoBehaviour:
     m_Bits: 64
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
 --- !u!50 &1745382149
 Rigidbody2D:
   serializedVersion: 4
@@ -55175,6 +55377,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.15999998, y: 0.15999998}
   m_Direction: 0
+--- !u!114 &1745382153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745382146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9ee3d187de156489abdbf64fac1310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxEnemyHealth: 3
+  currentEnemyHealth: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  initialCoordinates: {x: 0, y: 0}
 --- !u!1 &1749959975
 GameObject:
   m_ObjectHideFlags: 0

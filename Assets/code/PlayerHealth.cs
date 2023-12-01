@@ -132,6 +132,21 @@ public class PlayerHealth : MonoBehaviour
                     blueDoorObjectScript.Respawn();
                 }
 
+                // EnemyHealth enemyHealth = FindObjectOfType<EnemyHealth>();
+                // if (enemyHealth != null)
+                // {
+                //     Debug.Log("DEVUELVE ITEM WALJUM");
+                //     enemyHealth.Respawn();
+                // }
+
+                EnemyHealth[] enemies = FindObjectsOfType<EnemyHealth>();
+
+                foreach (EnemyHealth enemy in enemies)
+                {
+                    // Now you can call functions or perform actions on each enemy
+                    enemy.Respawn(); // Replace YourFunction() with the actual function you want to call
+                }
+
                 redDoorOpen = false;
                 greenDoorOpen = false;
                 blueDoorOpen = false;

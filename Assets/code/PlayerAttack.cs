@@ -20,6 +20,7 @@ public class PlayerAttack : MonoBehaviour
     public BlueDoorObjectScript blueDoor;
 
     public PlayerMovement playerMovement;
+    private EnemyHealth enemyHealth;
     public Collider2D playerCollider;
     public LayerMask enemyLayer;
     public LayerMask obstacleLayer;
@@ -98,11 +99,16 @@ public class PlayerAttack : MonoBehaviour
         {
             // Enemy detected, push them back
             EnemyMovement enemy = hit.collider.GetComponent<EnemyMovement>();
+            EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
 
             if (enemy != null)
             {
                 // Apply force to the enemy
                 enemy.PushBack(pushDirection, pushForce);
+                if (enemyHealth != null)
+                {
+                    enemyHealth.GetHit();
+                }
                 playerMovement.KnockBack(pushDirection, pushForce);
             }
         }
@@ -179,11 +185,16 @@ public class PlayerAttack : MonoBehaviour
         {
             // Enemy detected, push them back
             EnemyMovement enemy = hit.collider.GetComponent<EnemyMovement>();
+            EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
 
             if (enemy != null)
             {
                 // Apply force to the enemy
                 enemy.PushBack(pushDirection, pushForce);
+                if (enemyHealth != null)
+                {
+                    enemyHealth.GetHit();
+                }
                 playerMovement.KnockBack(pushDirection, pushForce);
             }
         }
@@ -260,11 +271,16 @@ public class PlayerAttack : MonoBehaviour
         {
             // Enemy detected, push them back
             EnemyMovement enemy = hit.collider.GetComponent<EnemyMovement>();
+            EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
 
             if (enemy != null)
             {
                 // Apply force to the enemy
                 enemy.PushBack(pushDirection, pushForce);
+                if (enemyHealth != null)
+                {
+                    enemyHealth.GetHit();
+                }
                 playerMovement.KnockBack(pushDirection, pushForce);
             }
         }
@@ -290,11 +306,16 @@ public class PlayerAttack : MonoBehaviour
         {
             // Enemy detected, push them back
             EnemyMovement enemy = hit.collider.GetComponent<EnemyMovement>();
+            EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
 
             if (enemy != null)
             {
                 // Apply force to the enemy
                 enemy.PushBack(pushDirection, pushForce);
+                if (enemyHealth != null)
+                {
+                    enemyHealth.GetHit();
+                }
                 playerMovement.KnockBack(pushDirection, pushForce);
             }
         }
