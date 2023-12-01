@@ -34,7 +34,7 @@ public class RedKeyItemScript : MonoBehaviour
 
     public void Respawn()
     {
-        Debug.Log("entra en el respawn del item");
+        // Debug.Log("entra en el respawn del item");
         // Respawn the RedKey item if a reference exists
         if (redKeyItem != null)
         {
@@ -46,7 +46,7 @@ public class RedKeyItemScript : MonoBehaviour
                 // Call ActivateDoubleJump function from PlayerMovement script
                 playerMovement.ActivateRedKey(false);
             }
-            Debug.Log("RedKey item respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
+            // Debug.Log("RedKey item respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
         }
     }
 }

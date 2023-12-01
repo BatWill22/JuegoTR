@@ -27,7 +27,7 @@ public class PlayerInteraction : MonoBehaviour
                 // Call the ChangeDirection function
                 enemyMovement.ChangeDirection();
             }
-            Debug.Log("Player took damage. Current health: ");
+            // Debug.Log("Player took damage. Current health: ");
         }
     }
 

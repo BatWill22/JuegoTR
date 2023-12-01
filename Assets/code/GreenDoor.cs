@@ -29,7 +29,7 @@ public class GreenDoorObjectScript : MonoBehaviour
 
     public void Respawn()
     {
-        Debug.Log("entra en el respawn del object");
+        // Debug.Log("entra en el respawn del object");
         // Respawn the GreenDoor object if a reference exists
         if (greenDoorObject != null)
         {
@@ -41,7 +41,7 @@ public class GreenDoorObjectScript : MonoBehaviour
                 // Call ActivateDoubleJump function from PlayerHealth script
                 playerHealth.ActivateGreenDoor(false);
             }
-            Debug.Log("GreenDoor object respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
+            // Debug.Log("GreenDoor object respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
         }
     }
 }

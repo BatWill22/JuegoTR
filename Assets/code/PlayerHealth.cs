@@ -14,6 +14,8 @@ public class PlayerHealth : MonoBehaviour
     public bool greenDoorOpen = false;
     public bool blueDoorOpen = false;
 
+    public bool gameOver = false;
+
     // public DashItemScript dashItemScript;
 
     // Start is called before the first frame update
@@ -38,7 +40,7 @@ public class PlayerHealth : MonoBehaviour
             else
             {
                 StartCoroutine(StartInvincibility());
-                Debug.Log("Player took damage. Current health: " + currentHealth);
+                Debug.Log("HEALTH POINTS: " + currentHealth);
             }
         }
     }
@@ -57,102 +59,26 @@ public class PlayerHealth : MonoBehaviour
         // Move the player to the respawn coordinates
         // if (playerM != null)
         // {
-            Debug.Log("Detecta playerMovement");
+            // Debug.Log("Detecta playerMovement");
             bool dash = GetComponent<PlayerMovement>().canDash;
             bool walljump = GetComponent<PlayerMovement>().canWallJumpAndSlide;
             bool doubleJump = GetComponent<PlayerMovement>().canDoubleJump;
             bool redKey = GetComponent<PlayerMovement>().hasRedKey;
             bool greenKey = GetComponent<PlayerMovement>().hasGreenKey;
             bool blueKey = GetComponent<PlayerMovement>().hasBlueKey;
-            if(dash && walljump && doubleJump && redKey && greenKey && blueKey && greenDoorOpen && blueDoorOpen && redDoorOpen)
+            if(gameOver)
+            {
+                Restart();
+                Debug.Log("CONGRATULATIONS: YOU HAVE SUCCESFULLY COMPLETED THE GAME");
+            }
+            else if(dash && walljump && doubleJump && redKey && greenKey && blueKey && greenDoorOpen && blueDoorOpen && redDoorOpen && !gameOver)
             {
                 transform.position = new Vector3(checkpointCoordinates.x, checkpointCoordinates.y, transform.position.z);
                 // Debug.Log("tp a checkpoint");
             }
             else
             {
-                transform.position = new Vector3(respawnCoordinates.x, respawnCoordinates.y, transform.position.z);
-                // if (dashItemScript != null)
-                // {
-                // Call the Respawn method from DashItemScript
-                DashItemScript dashItemScript = FindObjectOfType<DashItemScript>();
-                if (dashItemScript != null)
-                {
-                    Debug.Log("DEVUELVE ITEM DAS");
-                    dashItemScript.Respawn();
-                }
-                DoubleJumpItemScript doubleJumpItemScript = FindObjectOfType<DoubleJumpItemScript>();
-                if (doubleJumpItemScript != null)
-                {
-                    Debug.Log("DEVUELVE ITEM DUBEJUM");
-                    doubleJumpItemScript.Respawn();
-                }
-                WalljumpItemScript walljumpItemScript = FindObjectOfType<WalljumpItemScript>();
-                if (walljumpItemScript != null)
-                {
-                    Debug.Log("DEVUELVE ITEM WALJUM");
-                    walljumpItemScript.Respawn();
-                }
-
-                RedKeyItemScript redKeyItemScript = FindObjectOfType<RedKeyItemScript>();
-                if (redKeyItemScript != null)
-                {
-                    Debug.Log("DEVUELVE ITEM RED");
-                    redKeyItemScript.Respawn();
-                }
-                GreenKeyItemScript greenKeyItemScript = FindObjectOfType<GreenKeyItemScript>();
-                if (greenKeyItemScript != null)
-                {
-                    Debug.Log("DEVUELVE ITEM GRIN");
-                    greenKeyItemScript.Respawn();
-                }
-                BlueKeyItemScript blueKeyItemScript = FindObjectOfType<BlueKeyItemScript>();
-                if (blueKeyItemScript != null)
-                {
-                    Debug.Log("DEVUELVE ITEM BLU");
-                    blueKeyItemScript.Respawn();
-                }
-
-                RedDoorObjectScript redDoorObjectScript = FindObjectOfType<RedDoorObjectScript>();
-                if (redDoorObjectScript != null)
-                {
-                    Debug.Log("DEVUELVE ITEM WALJUM");
-                    redDoorObjectScript.Respawn();
-                }
-                GreenDoorObjectScript greenDoorObjectScript = FindObjectOfType<GreenDoorObjectScript>();
-                if (greenDoorObjectScript != null)
-                {
-                    Debug.Log("DEVUELVE ITEM WALJUM");
-                    greenDoorObjectScript.Respawn();
-                }
-                BlueDoorObjectScript blueDoorObjectScript = FindObjectOfType<BlueDoorObjectScript>();
-                if (blueDoorObjectScript != null)
-                {
-                    Debug.Log("DEVUELVE ITEM WALJUM");
-                    blueDoorObjectScript.Respawn();
-                }
-
-                // EnemyHealth enemyHealth = FindObjectOfType<EnemyHealth>();
-                // if (enemyHealth != null)
-                // {
-                //     Debug.Log("DEVUELVE ITEM WALJUM");
-                //     enemyHealth.Respawn();
-                // }
-
-                EnemyHealth[] enemies = FindObjectsOfType<EnemyHealth>();
-
-                foreach (EnemyHealth enemy in enemies)
-                {
-                    // Now you can call functions or perform actions on each enemy
-                    enemy.Respawn(); // Replace YourFunction() with the actual function you want to call
-                }
-
-                redDoorOpen = false;
-                greenDoorOpen = false;
-                blueDoorOpen = false;
-                // Debug.Log("DEVUELVE ITEMS");
-                // }
-                // Debug.Log("tp a 0,0");
+                Restart();
             }
         // }
         // else
@@ -197,5 +123,122 @@ public class PlayerHealth : MonoBehaviour
     public void ActivateBlueDoor(bool activate)
     {
         blueDoorOpen = activate;
+    }
+
+    public void ActivateFinal(bool activate)
+    {
+        gameOver = activate;
+        Respawn();
+    }
+
+    private void Restart() 
+    {
+        transform.position = new Vector3(respawnCoordinates.x, respawnCoordinates.y, transform.position.z);
+        // if (dashItemScript != null)
+        // {
+        // Call the Respawn method from DashItemScript
+        DashItemScript dashItemScript = FindObjectOfType<DashItemScript>();
+        if (dashItemScript != null)
+        {
+            // Debug.Log("DEVUELVE ITEM DAS");
+            dashItemScript.Respawn();
+        }
+        DoubleJumpItemScript doubleJumpItemScript = FindObjectOfType<DoubleJumpItemScript>();
+        if (doubleJumpItemScript != null)
+        {
+            // Debug.Log("DEVUELVE ITEM DUBEJUM");
+            doubleJumpItemScript.Respawn();
+        }
+        WalljumpItemScript walljumpItemScript = FindObjectOfType<WalljumpItemScript>();
+        if (walljumpItemScript != null)
+        {
+            // Debug.Log("DEVUELVE ITEM WALJUM");
+            walljumpItemScript.Respawn();
+        }
+
+        FinalItemScript finalItemScript = FindObjectOfType<FinalItemScript>();
+        if (finalItemScript != null)
+        {
+            // Debug.Log("DEVUELVE ITEM WALJUM");
+            finalItemScript.Respawn();
+        }
+
+        RedKeyItemScript redKeyItemScript = FindObjectOfType<RedKeyItemScript>();
+        if (redKeyItemScript != null)
+        {
+            // Debug.Log("DEVUELVE ITEM RED");
+            redKeyItemScript.Respawn();
+        }
+        GreenKeyItemScript greenKeyItemScript = FindObjectOfType<GreenKeyItemScript>();
+        if (greenKeyItemScript != null)
+        {
+            // Debug.Log("DEVUELVE ITEM GRIN");
+            greenKeyItemScript.Respawn();
+        }
+        BlueKeyItemScript blueKeyItemScript = FindObjectOfType<BlueKeyItemScript>();
+        if (blueKeyItemScript != null)
+        {
+            // Debug.Log("DEVUELVE ITEM BLU");
+            blueKeyItemScript.Respawn();
+        }
+
+        RedDoorObjectScript redDoorObjectScript = FindObjectOfType<RedDoorObjectScript>();
+        if (redDoorObjectScript != null)
+        {
+            // Debug.Log("DEVUELVE ITEM WALJUM");
+            redDoorObjectScript.Respawn();
+        }
+        GreenDoorObjectScript greenDoorObjectScript = FindObjectOfType<GreenDoorObjectScript>();
+        if (greenDoorObjectScript != null)
+        {
+            // Debug.Log("DEVUELVE ITEM WALJUM");
+            greenDoorObjectScript.Respawn();
+        }
+        BlueDoorObjectScript blueDoorObjectScript = FindObjectOfType<BlueDoorObjectScript>();
+        if (blueDoorObjectScript != null)
+        {
+            // Debug.Log("DEVUELVE ITEM WALJUM");
+            blueDoorObjectScript.Respawn();
+        }
+        FinalDoorObjectScript finalDoorObjectScript = FindObjectOfType<FinalDoorObjectScript>();
+        if (finalDoorObjectScript != null)
+        {
+            // Debug.Log("DEVUELVE ITEM WALJUM");
+            finalDoorObjectScript.Respawn();
+        }
+        ExitDoorObjectScript exitDoorObjectScript = FindObjectOfType<ExitDoorObjectScript>();
+        if (exitDoorObjectScript != null)
+        {
+            // Debug.Log("DEVUELVE ITEM WALJUM");
+            exitDoorObjectScript.Respawn();
+        }
+        NormalDoorObjectScript normalDoorObjectScript = FindObjectOfType<NormalDoorObjectScript>();
+        if (normalDoorObjectScript != null)
+        {
+            // Debug.Log("DEVUELVE ITEM WALJUM");
+            normalDoorObjectScript.Respawn();
+        }
+
+        // EnemyHealth enemyHealth = FindObjectOfType<EnemyHealth>();
+        // if (enemyHealth != null)
+        // {
+        //     Debug.Log("DEVUELVE ITEM WALJUM");
+        //     enemyHealth.Respawn();
+        // }
+
+        EnemyHealth[] enemies = FindObjectsOfType<EnemyHealth>();
+
+        foreach (EnemyHealth enemy in enemies)
+        {
+            // Now you can call functions or perform actions on each enemy
+            enemy.Respawn(); // Replace YourFunction() with the actual function you want to call
+        }
+
+        redDoorOpen = false;
+        greenDoorOpen = false;
+        blueDoorOpen = false;
+        // Debug.Log("DEVUELVE ITEMS");
+        // }
+        // Debug.Log("tp a 0,0");
     }
 }

@@ -29,7 +29,7 @@ public class RedDoorObjectScript : MonoBehaviour
 
     public void Respawn()
     {
-        Debug.Log("entra en el respawn del object");
+        // Debug.Log("entra en el respawn del object");
         // Respawn the RedDoor object if a reference exists
         if (redDoorObject != null)
         {
@@ -41,7 +41,7 @@ public class RedDoorObjectScript : MonoBehaviour
                 // Call ActivateDoubleJump function from PlayerHealth script
                 playerHealth.ActivateRedDoor(false);
             }
-            Debug.Log("RedDoor object respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
+            // Debug.Log("RedDoor object respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
         }
     }
 }

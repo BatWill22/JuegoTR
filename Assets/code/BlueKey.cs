@@ -34,7 +34,7 @@ public class BlueKeyItemScript : MonoBehaviour
 
     public void Respawn()
     {
-        Debug.Log("entra en el respawn del item");
+        // Debug.Log("entra en el respawn del item");
         // Respawn the BlueKey item if a reference exists
         if (blueKeyItem != null)
         {
@@ -46,7 +46,7 @@ public class BlueKeyItemScript : MonoBehaviour
                 // Call ActivateDoubleJump function from PlayerMovement script
                 playerMovement.ActivateBlueKey(false);
             }
-            Debug.Log("BlueKey item respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
+            // Debug.Log("BlueKey item respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
         }
     }
 }

@@ -29,11 +29,11 @@ public class BlueDoorObjectScript : MonoBehaviour
 
     public void Respawn()
     {
-        Debug.Log("entra en el respawn del object");
+        // Debug.Log("entra en el respawn del object");
         // Respawn the BlueDoor object if a reference exists
         if (blueDoorObject != null)
         {
-            blueDoorObject.SetActive(true);
+            // blueDoorObject.SetActive(true);
             // You might want to set its position to the initial spawn position
             blueDoorObject.transform.position = initialBlueDoorObjectPosition;
             if (playerHealth != null)
@@ -41,7 +41,7 @@ public class BlueDoorObjectScript : MonoBehaviour
                 // Call ActivateDoubleJump function from PlayerHealth script
                 playerHealth.ActivateBlueDoor(false);
             }
-            Debug.Log("BlueDoor object respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
+            // Debug.Log("BlueDoor object respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
         }
     }
 }

@@ -34,7 +34,7 @@ public class GreenKeyItemScript : MonoBehaviour
 
     public void Respawn()
     {
-        Debug.Log("entra en el respawn del item");
+        // Debug.Log("entra en el respawn del item");
         // Respawn the GreenKey item if a reference exists
         if (greenKeyItem != null)
         {
@@ -46,7 +46,7 @@ public class GreenKeyItemScript : MonoBehaviour
                 // Call ActivateDoubleJump function from PlayerMovement script
                 playerMovement.ActivateGreenKey(false);
             }
-            Debug.Log("GreenKey item respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
+            // Debug.Log("GreenKey item respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
         }
     }
 }

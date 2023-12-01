@@ -34,7 +34,7 @@ public class DashItemScript : MonoBehaviour
 
     public void Respawn()
     {
-        Debug.Log("entra en el respawn del item");
+        // Debug.Log("entra en el respawn del item");
         // Respawn the Dash item if a reference exists
         if (dashItem != null)
         {
@@ -46,7 +46,7 @@ public class DashItemScript : MonoBehaviour
                 // Call ActivateDoubleJump function from PlayerMovement script
                 playerMovement.ActivateDash(false);
             }
-            Debug.Log("Dash item respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
+            // Debug.Log("Dash item respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
         }
     }
 }

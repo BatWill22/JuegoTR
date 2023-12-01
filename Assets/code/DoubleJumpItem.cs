@@ -34,7 +34,7 @@ public class DoubleJumpItemScript : MonoBehaviour
 
     public void Respawn()
     {
-        Debug.Log("entra en el respawn del item");
+        // Debug.Log("entra en el respawn del item");
         // Respawn the DoubleJump item if a reference exists
         if (doubleJumpItem != null)
         {
@@ -46,7 +46,7 @@ public class DoubleJumpItemScript : MonoBehaviour
                 // Call ActivateDoubleJump function from PlayerMovement script
                 playerMovement.ActivateDoubleJump(false);
             }
-            Debug.Log("DoubleJump item respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
+            // Debug.Log("DoubleJump item respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
         }
     }
 }

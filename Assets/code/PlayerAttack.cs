@@ -19,6 +19,9 @@ public class PlayerAttack : MonoBehaviour
     public GreenDoorObjectScript greenDoor;
     public BlueDoorObjectScript blueDoor;
 
+    public FinalDoorObjectScript finalDoor;
+    public ExitDoorObjectScript exitDoor;
+
     public PlayerMovement playerMovement;
     private EnemyHealth enemyHealth;
     public Collider2D playerCollider;
@@ -122,9 +125,18 @@ public class PlayerAttack : MonoBehaviour
         RaycastHit2D hit3 = Physics2D.Raycast(transform.position, Vector2.right, attackRange, doorLayer);
         if (hit3.collider != null)
         {
+            NormalDoorObjectScript normalDoor = hit3.collider.GetComponent<NormalDoorObjectScript>();
+            // Debug.Log("hit3.collider: " + hit3.collider);
+            if (normalDoor != null)
+            {
+                // Debug.Log("normalDoor is not null");
+                normalDoor.OpenDoor();
+                // Debug.Log("Opened the door");
+            }
+            
             // Assuming each door has a unique tag
             string doorTag = hit3.collider.tag;
-            Debug.Log("hit3.collider no es null:" + doorTag);
+            // Debug.Log("hit3.collider no es null:" + doorTag);
 
             switch (doorTag)
             {
@@ -163,6 +175,28 @@ public class PlayerAttack : MonoBehaviour
                         }
                     }
                     break;
+
+                case "FinalDoor":
+                    FinalDoorObjectScript finalDoor = hit3.collider.GetComponent<FinalDoorObjectScript>();
+                    if (finalDoor != null)
+                    {
+                        finalDoor.OpenDoor();
+                        ExitDoorObjectScript exitDoor = FindObjectOfType<ExitDoorObjectScript>();
+                        if (exitDoor != null)
+                        {
+                            // Debug.Log("DEVUELVE ITEM WALJUM");
+                            exitDoor.Respawn();
+                        }
+                    }
+                    break;
+
+                // case "NormalDoor":
+                //     NormalDoorObjectScript normalDoor = hit3.collider.GetComponent<NormalDoorObjectScript>();
+                //     if (normalDoor != null)
+                //     {
+                //         normalDoor.OpenDoor();
+                //     }
+                //     break;
 
                 default:
                     // Handle other cases or do nothing
@@ -209,8 +243,18 @@ public class PlayerAttack : MonoBehaviour
         if (hit3.collider != null)
         {
             // Assuming each door has a unique tag
+            
+            NormalDoorObjectScript normalDoor = hit3.collider.GetComponent<NormalDoorObjectScript>();
+            // Debug.Log("hit3.collider: " + hit3.collider);
+            if (normalDoor != null)
+            {
+                // Debug.Log("normalDoor is not null");
+                normalDoor.OpenDoor();
+                // Debug.Log("Opened the door");
+            }
+            
             string doorTag = hit3.collider.tag;
-            Debug.Log("hit3.collider no es null:" + doorTag);
+            // Debug.Log("hit3.collider no es null:" + doorTag);
 
             switch (doorTag)
             {
@@ -246,6 +290,20 @@ public class PlayerAttack : MonoBehaviour
                         if (blueKey)
                         {
                             blueDoor.OpenDoor();
+                        }
+                    }
+                    break;
+
+                case "FinalDoor":
+                    FinalDoorObjectScript finalDoor = hit3.collider.GetComponent<FinalDoorObjectScript>();
+                    if (finalDoor != null)
+                    {
+                        finalDoor.OpenDoor();
+                        ExitDoorObjectScript exitDoor = FindObjectOfType<ExitDoorObjectScript>();
+                        if (exitDoor != null)
+                        {
+                            // Debug.Log("oioearta fubak eadag ritor");
+                            exitDoor.OpenDoor();
                         }
                     }
                     break;
@@ -330,7 +388,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (rightRaycastHit || leftRaycastHit || centerRaycastHit)
         {
-            Debug.Log("hit2.collider: ");
+            // Debug.Log("hit2.collider: ");
             playerMovement.KnockBack(pushDirection, pushForce);
         }
 

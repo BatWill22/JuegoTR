@@ -34,7 +34,7 @@ public class WalljumpItemScript : MonoBehaviour
 
     public void Respawn()
     {
-        Debug.Log("entra en el respawn del item");
+        // Debug.Log("entra en el respawn del item");
         // Respawn the Walljump item if a reference exists
         if (walljumpItem != null)
         {
@@ -46,7 +46,7 @@ public class WalljumpItemScript : MonoBehaviour
                 // Call ActivateWalljump function from PlayerMovement script
                 playerMovement.ActivateWalljump(false);
             }
-            Debug.Log("Walljump item respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
+            // Debug.Log("Walljump item respawned! jbaeuoebngtoqbhaweughoiaoghuaheihjyopashia0opeghuohgpaiheoughoanepighaouge");
         }
     }
 }

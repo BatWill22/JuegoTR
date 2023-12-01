@@ -8,6 +8,9 @@ TagManager:
   - RedDoor
   - GreenDoor
   - BlueDoor
+  - ExitDoor
+  - FinalDoor
+  - NormalDoor
   layers:
   - Default
   - TransparentFX
