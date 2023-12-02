@@ -20,7 +20,7 @@ TagManager:
   - UI
   - Wall
   - obstacle
-  - water
+  - clouds
   - CheckGround
   - enemy
   - player
