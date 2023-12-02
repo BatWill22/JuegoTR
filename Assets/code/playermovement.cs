@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -66,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
     private float pushDirectionPlayerY; 
     private float pushForcePlayer;
 
+    public bool gameOver = false;
+
     public void ResetToLastCheckZonePosition()
     {
         hasBeenHit = true;
@@ -108,6 +113,11 @@ public class PlayerMovement : MonoBehaviour
                 rb.gravityScale = 10f;
                 transform.position = lastCheckGroundPosition; // Set the player's position to the last ground position
                 hasBeenHit = false;
+            }
+            if (gameOver)
+            {
+                SceneManager.LoadScene("EndGameMenu");
+                gameOver = false;
             }
             canMove = true;
         }
@@ -480,5 +490,13 @@ public class PlayerMovement : MonoBehaviour
     public void ActivateBlueKey(bool activate)
     {
         hasBlueKey = activate;
+    }
+
+    public void ActivateFinal(bool activate)
+    {
+        gameOver = activate;
+        Debug.Log("CONGRATULATIONS: YOU HAVE SUCCESFULLY COMPLETED THE GAME");
+        // Debug.Log("Paso 2: se activa la variable del Game Over");
+        moveTimer = -5f;
     }
 }

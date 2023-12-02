@@ -25,7 +25,7 @@ public class FinalItemScript : MonoBehaviour
         {
             // Call ActivateFinal function from PlayerMovement script
             // Debug.Log("Paso 1: el jugador toca el objeto final");
-            other.GetComponent<PlayerHealth>().ActivateFinal(true);
+            other.GetComponent<PlayerMovement>().ActivateFinal(true);
             // Destroy the item GameObject
             // Destroy(gameObject);
             // finalItem.SetActive(false);

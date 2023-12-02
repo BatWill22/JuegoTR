@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -13,8 +14,6 @@ public class PlayerHealth : MonoBehaviour
     public bool redDoorOpen = false;
     public bool greenDoorOpen = false;
     public bool blueDoorOpen = false;
-
-    public bool gameOver = false;
 
     // public DashItemScript dashItemScript;
 
@@ -72,7 +71,7 @@ public class PlayerHealth : MonoBehaviour
             //     Restart();
             //     Debug.Log("CONGRATULATIONS: YOU HAVE SUCCESFULLY COMPLETED THE GAME");
             // }
-            if(dash && walljump && doubleJump && redKey && greenKey && blueKey && greenDoorOpen && blueDoorOpen && redDoorOpen && !gameOver)
+            if(dash && walljump && doubleJump && redKey && greenKey && blueKey && greenDoorOpen && blueDoorOpen && redDoorOpen)
             {
                 transform.position = new Vector3(checkpointCoordinates.x, checkpointCoordinates.y, transform.position.z);
                 // Debug.Log("tp a checkpoint");
@@ -80,6 +79,7 @@ public class PlayerHealth : MonoBehaviour
             else
             {
                 Restart();
+                SceneManager.LoadScene("DeathMenu");
             }
         // }
         // else
@@ -126,13 +126,13 @@ public class PlayerHealth : MonoBehaviour
         blueDoorOpen = activate;
     }
 
-    public void ActivateFinal(bool activate)
-    {
-        gameOver = activate;
-        Debug.Log("CONGRATULATIONS: YOU HAVE SUCCESFULLY COMPLETED THE GAME");
-        // Debug.Log("Paso 2: se activa la variable del Game Over");
-        Restart();
-    }
+    // public void ActivateFinal(bool activate)
+    // {
+    //     gameOver = activate;
+    //     Debug.Log("CONGRATULATIONS: YOU HAVE SUCCESFULLY COMPLETED THE GAME");
+    //     // Debug.Log("Paso 2: se activa la variable del Game Over");
+    //     Restart();
+    // }
 
     private void Restart() 
     {
@@ -241,7 +241,6 @@ public class PlayerHealth : MonoBehaviour
         redDoorOpen = false;
         greenDoorOpen = false;
         blueDoorOpen = false;
-        gameOver = false;
         // Debug.Log("DEVUELVE ITEMS");
         // }
         // Debug.Log("tp a 0,0");
