@@ -10,26 +10,32 @@ public class CameraFollow : MonoBehaviour
 
     public float verticalOffset = 2.0f; // Adjust this value to control the vertical camera offset.
 
+    public PlayerMovement playerMovement;
+
+
     void LateUpdate()
     {
-        // Calculate the desired position for the camera.
-        Vector3 desiredPosition = target.position + offset;
-
-        // Check for 'W' key input to move the camera up.
-        if (Input.GetKey("w"))
+        bool moves = playerMovement.canMove;
+        if (moves)
         {
-            desiredPosition.y += verticalOffset;
-        }
-        // Check for 'S' key input to move the camera down.
-        else if (Input.GetKey("s"))
-        {
-            desiredPosition.y -= verticalOffset;
-        }
+            // Calculate the desired position for the camera.
+            Vector3 desiredPosition = target.position + offset;
 
-        // Use SmoothDamp to gradually move the camera to the desired position.
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+            // Check for 'W' key input to move the camera up.
+            if (Input.GetKey("w"))
+            {
+                desiredPosition.y += verticalOffset;
+            }
+            // Check for 'S' key input to move the camera down.
+            else if (Input.GetKey("s"))
+            {
+                desiredPosition.y -= verticalOffset;
+            }
+            // Use SmoothDamp to gradually move the camera to the desired position.
+            Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
 
-        // Set the camera's position to the smoothed position.
-        transform.position = smoothedPosition;
+            // Set the camera's position to the smoothed position.
+            transform.position = smoothedPosition;
+        }
     }
 }

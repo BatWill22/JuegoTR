@@ -144,7 +144,7 @@ public class PlayerAttack : MonoBehaviour
                     RedDoorObjectScript redDoor = hit3.collider.GetComponent<RedDoorObjectScript>();
                     if (redDoor != null)
                     {
-                        bool redKey = GetComponent<PlayerMovement>().hasRedKey;
+                        bool redKey = PlayerMovement.hasRedKey;
                         if (redKey)
                         {
                             redDoor.OpenDoor();
@@ -156,7 +156,7 @@ public class PlayerAttack : MonoBehaviour
                     GreenDoorObjectScript greenDoor = hit3.collider.GetComponent<GreenDoorObjectScript>();
                     if (greenDoor != null)
                     {
-                        bool greenKey = GetComponent<PlayerMovement>().hasGreenKey;
+                        bool greenKey = PlayerMovement.hasGreenKey;
                         if (greenKey)
                         {
                             greenDoor.OpenDoor();
@@ -168,7 +168,7 @@ public class PlayerAttack : MonoBehaviour
                     BlueDoorObjectScript blueDoor = hit3.collider.GetComponent<BlueDoorObjectScript>();
                     if (blueDoor != null)
                     {
-                        bool blueKey = GetComponent<PlayerMovement>().hasBlueKey;
+                        bool blueKey = PlayerMovement.hasBlueKey;
                         if (blueKey)
                         {
                             blueDoor.OpenDoor();
@@ -262,7 +262,7 @@ public class PlayerAttack : MonoBehaviour
                     RedDoorObjectScript redDoor = hit3.collider.GetComponent<RedDoorObjectScript>();
                     if (redDoor != null)
                     {
-                        bool redKey = GetComponent<PlayerMovement>().hasRedKey;
+                        bool redKey = PlayerMovement.hasRedKey;
                         if (redKey)
                         {
                             redDoor.OpenDoor();
@@ -274,7 +274,7 @@ public class PlayerAttack : MonoBehaviour
                     GreenDoorObjectScript greenDoor = hit3.collider.GetComponent<GreenDoorObjectScript>();
                     if (greenDoor != null)
                     {
-                        bool greenKey = GetComponent<PlayerMovement>().hasGreenKey;
+                        bool greenKey = PlayerMovement.hasGreenKey;
                         if (greenKey)
                         {
                             greenDoor.OpenDoor();
@@ -286,7 +286,7 @@ public class PlayerAttack : MonoBehaviour
                     BlueDoorObjectScript blueDoor = hit3.collider.GetComponent<BlueDoorObjectScript>();
                     if (blueDoor != null)
                     {
-                        bool blueKey = GetComponent<PlayerMovement>().hasBlueKey;
+                        bool blueKey = PlayerMovement.hasBlueKey;
                         if (blueKey)
                         {
                             blueDoor.OpenDoor();
@@ -411,5 +411,11 @@ public class PlayerAttack : MonoBehaviour
 
         // Reset canAttack to true after cooldown
         canAttack = true;
+    }
+
+    public void CanAttack(bool activate)
+    {
+        canAttack = activate;
+        // Debug.Log("Es pot moure? " + canMove);
     }
 }

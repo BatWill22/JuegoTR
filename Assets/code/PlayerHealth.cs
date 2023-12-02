@@ -60,12 +60,12 @@ public class PlayerHealth : MonoBehaviour
         // {
             // Debug.Log("Detecta playerMovement");
             // Debug.Log("Paso 3: se Llama a la función Respawn");
-            bool dash = GetComponent<PlayerMovement>().canDash;
-            bool walljump = GetComponent<PlayerMovement>().canWallJumpAndSlide;
-            bool doubleJump = GetComponent<PlayerMovement>().canDoubleJump;
-            bool redKey = GetComponent<PlayerMovement>().hasRedKey;
-            bool greenKey = GetComponent<PlayerMovement>().hasGreenKey;
-            bool blueKey = GetComponent<PlayerMovement>().hasBlueKey;
+            bool dash = PlayerMovement.canDash;
+            bool walljump = PlayerMovement.canWallJumpAndSlide;
+            bool doubleJump = PlayerMovement.canDoubleJump;
+            bool redKey = PlayerMovement.hasRedKey;
+            bool greenKey = PlayerMovement.hasGreenKey;
+            bool blueKey = PlayerMovement.hasBlueKey;
             // if(gameOver)
             // {
             //     Restart();
@@ -244,6 +244,6 @@ public class PlayerHealth : MonoBehaviour
         // Debug.Log("DEVUELVE ITEMS");
         // }
         // Debug.Log("tp a 0,0");
-        Debug.Log("Paso 7: todos los objetos vuelven a su posición");
+        // Debug.Log("Paso 7: todos los objetos vuelven a su posición");
     }
 }

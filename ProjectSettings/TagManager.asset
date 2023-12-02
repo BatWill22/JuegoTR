@@ -11,6 +11,7 @@ TagManager:
   - ExitDoor
   - FinalDoor
   - NormalDoor
+  - PauseElement
   layers:
   - Default
   - TransparentFX
@@ -47,4 +48,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Map background
+    uniqueID: 2769812635
+    locked: 0
+  - name: Map elements
+    uniqueID: 2195888609
+    locked: 0
+  - name: Menu background
+    uniqueID: 1013774925
+    locked: 0
+  - name: Menu elements
+    uniqueID: 643572355
     locked: 0

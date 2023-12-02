@@ -22,6 +22,8 @@ public class EnemyMovement : MonoBehaviour
     private float groundTimer = 0f;
     private float maxGroundTime = 0.5f;
 
+    private bool enemyMove = true;
+
 
     private void Start()
     {
@@ -31,60 +33,63 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        //Calcular si isGrounded
-        // Calculate positions for raycasts
-        Vector3 rightRaycastOrigin = transform.position + new Vector3(enemyCollider.bounds.extents.x, 0f, 0f);
-        Vector3 leftRaycastOrigin = transform.position - new Vector3(enemyCollider.bounds.extents.x, 0f, 0f);
-        Vector3 centerRaycastOrigin = transform.position;
-        // Perform raycasts
-        bool rightRaycastHit = Physics2D.Raycast(rightRaycastOrigin, Vector2.down, 1f, wallLayer);
-        bool leftRaycastHit = Physics2D.Raycast(leftRaycastOrigin, Vector2.down, 1f, wallLayer);
-        bool centerRaycastHit = Physics2D.Raycast(centerRaycastOrigin, Vector2.down, 1f, wallLayer);
-        // Check if any of the raycasts hit the ground
-        isTouchingGround = enemyCollider.IsTouchingLayers(groundLayer) || (enemyCollider.IsTouchingLayers(wallLayer) && (rightRaycastHit && leftRaycastHit && centerRaycastHit || isCheckGrounded));
-
-        isWallOnRight = enemyCollider.IsTouchingLayers(wallLayer) && Physics2D.Raycast(transform.position, Vector2.right, enemyCollider.bounds.extents.x + 0.05f, wallLayer);
-        isWallOnLeft = enemyCollider.IsTouchingLayers(wallLayer) && Physics2D.Raycast(transform.position, Vector2.left, enemyCollider.bounds.extents.x + 0.05f, wallLayer);
-        // isTouchingWall = isWallOnLeft || isWallOnRight;
-        // if (Physics2D.Raycast(centerRaycastOrigin, Vector2.up, 1f, wallLayer) && !Physics2D.Raycast(transform.position, Vector2.right, 1f, wallLayer) && !Physics2D.Raycast(transform.position, Vector2.left, 1f, wallLayer ))
-        // {
-        //     isTouchingWall = false;
-        //     //Debug.Log("grounded: " + isGrounded);
-        // }
-
-
-        // Check for changes in the environment
-        // Debug.Log("Collider: " + enemyCollider.IsTouchingLayers(enemyLayer)); 
-        if ((!isTouchingGround || isWallOnLeft || isWallOnRight) && (groundTimer <= 0f))
+        if (enemyMove)
         {
-            // Change direction
-            ChangeDirection();
-            if (!isTouchingGround)
+            //Calcular si isGrounded
+            // Calculate positions for raycasts
+            Vector3 rightRaycastOrigin = transform.position + new Vector3(enemyCollider.bounds.extents.x, 0f, 0f);
+            Vector3 leftRaycastOrigin = transform.position - new Vector3(enemyCollider.bounds.extents.x, 0f, 0f);
+            Vector3 centerRaycastOrigin = transform.position;
+            // Perform raycasts
+            bool rightRaycastHit = Physics2D.Raycast(rightRaycastOrigin, Vector2.down, 1f, wallLayer);
+            bool leftRaycastHit = Physics2D.Raycast(leftRaycastOrigin, Vector2.down, 1f, wallLayer);
+            bool centerRaycastHit = Physics2D.Raycast(centerRaycastOrigin, Vector2.down, 1f, wallLayer);
+            // Check if any of the raycasts hit the ground
+            isTouchingGround = enemyCollider.IsTouchingLayers(groundLayer) || (enemyCollider.IsTouchingLayers(wallLayer) && (rightRaycastHit && leftRaycastHit && centerRaycastHit || isCheckGrounded));
+
+            isWallOnRight = enemyCollider.IsTouchingLayers(wallLayer) && Physics2D.Raycast(transform.position, Vector2.right, enemyCollider.bounds.extents.x + 0.05f, wallLayer);
+            isWallOnLeft = enemyCollider.IsTouchingLayers(wallLayer) && Physics2D.Raycast(transform.position, Vector2.left, enemyCollider.bounds.extents.x + 0.05f, wallLayer);
+            // isTouchingWall = isWallOnLeft || isWallOnRight;
+            // if (Physics2D.Raycast(centerRaycastOrigin, Vector2.up, 1f, wallLayer) && !Physics2D.Raycast(transform.position, Vector2.right, 1f, wallLayer) && !Physics2D.Raycast(transform.position, Vector2.left, 1f, wallLayer ))
+            // {
+            //     isTouchingWall = false;
+            //     //Debug.Log("grounded: " + isGrounded);
+            // }
+
+
+            // Check for changes in the environment
+            // Debug.Log("Collider: " + enemyCollider.IsTouchingLayers(enemyLayer)); 
+            if ((!isTouchingGround || isWallOnLeft || isWallOnRight) && (groundTimer <= 0f))
             {
-                groundTimer = maxGroundTime;
+                // Change direction
+                ChangeDirection();
+                if (!isTouchingGround)
+                {
+                    groundTimer = maxGroundTime;
+                }
+                // Flip the enemy's sprite or model to match the new direction.
+                // You may need to handle this based on your enemy's setup.
             }
-            // Flip the enemy's sprite or model to match the new direction.
-            // You may need to handle this based on your enemy's setup.
-        }
 
-        if (groundTimer > 0f)
-        {
-            groundTimer -= Time.deltaTime;
-        }
+            if (groundTimer > 0f)
+            {
+                groundTimer -= Time.deltaTime;
+            }
 
-        // Move in the updated direction
-        if (moveRight && activateMovement)
-        {
-            rb.velocity = new Vector2(+moveSpeed, rb.velocity.y);
-        }
-        else if (activateMovement)
-        {
-            rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
-        }
-        //Debug.Log("grounded: " + isTouchingGround);
-        if (rb.velocity == Vector2.zero)
-        {
-            activateMovement = true;
+            // Move in the updated direction
+            if (moveRight && activateMovement)
+            {
+                rb.velocity = new Vector2(+moveSpeed, rb.velocity.y);
+            }
+            else if (activateMovement)
+            {
+                rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+            }
+            //Debug.Log("grounded: " + isTouchingGround);
+            if (rb.velocity == Vector2.zero)
+            {
+                activateMovement = true;
+            }
         }
     }
 
@@ -110,6 +115,12 @@ public class EnemyMovement : MonoBehaviour
         {
             ChangeDirection();
         }
+    }
+
+    public void EnemyMove(bool activate)
+    {
+        enemyMove = activate;
+        // Debug.Log("Es pot moure? " + canMove);
     }
 
     // private bool IsTouchingOtherEnemy()

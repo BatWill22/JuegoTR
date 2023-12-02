@@ -17,13 +17,13 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundLayer;
     public LayerMask wallLayer;
 
-    public bool canWallJumpAndSlide = false; // New variable for enabling/disabling wall jump and slide
-    public bool canDoubleJump = false;
-    public bool canDash = false; // Can dash
+    public static bool canWallJumpAndSlide = false; // New variable for enabling/disabling wall jump and slide
+    public static bool canDoubleJump = false;
+    public static bool canDash = false; // Can dash
 
-    public bool hasRedKey = false; // New variable for enabling/disabling wall jump and slide
-    public bool hasGreenKey = false;
-    public bool hasBlueKey = false; // Can dash
+    public static bool hasRedKey = false; // New variable for enabling/disabling wall jump and slide
+    public static bool hasGreenKey = false;
+    public static bool hasBlueKey = false; // Can dash
 
     private Rigidbody2D rb;
     private Collider2D playerCollider;
@@ -70,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
     private float pushForcePlayer;
 
     public bool gameOver = false;
+    private bool starts;
 
     public void ResetToLastCheckZonePosition()
     {
@@ -95,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
         lastCheckGroundPosition = transform.position; // Initialize it with the player's initial position
         remainDoubleJump = canDoubleJump;
         canMove = false;
+        starts = true;
     }
 
     private void Update()
@@ -113,17 +115,24 @@ public class PlayerMovement : MonoBehaviour
                 rb.gravityScale = 10f;
                 transform.position = lastCheckGroundPosition; // Set the player's position to the last ground position
                 hasBeenHit = false;
+                canMove = true;
             }
             if (gameOver)
             {
                 SceneManager.LoadScene("EndGameMenu");
                 gameOver = false;
+                canMove = true;
             }
-            canMove = true;
+            if(starts)
+            {
+                starts = false;
+                canMove = true;
+            }
         }
 
         if (canMove)
         {
+            rb.gravityScale = 10f;
             isCheckGrounded = playerCollider.IsTouchingLayers(groundLayer);
             //Calcular si isGrounded
             // Calculate positions for raycasts
@@ -351,7 +360,7 @@ public class PlayerMovement : MonoBehaviour
                 remainDoubleJump = true;
             }
 
-    // Log variables to the console.
+            // Log variables to the console.
             //Debug.Log("y Velocity: " + rb.velocity.y);
             //Debug.Log("Touching Wall: " + isTouchingWall);
             //Debug.Log("Wall Sliding: " + isWallSliding);
@@ -432,6 +441,12 @@ public class PlayerMovement : MonoBehaviour
             //     canWallJumpAndSlide = !canWallJumpAndSlide;
             // }
         }
+        else
+        {
+            // Debug.Log("rb velocity es 0");
+            rb.gravityScale = 0f;
+            rb.velocity = Vector2.zero;
+        }
     }
 
     public void KnockBack(Vector2 pushDirection, float pushForce)
@@ -498,5 +513,11 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("CONGRATULATIONS: YOU HAVE SUCCESFULLY COMPLETED THE GAME");
         // Debug.Log("Paso 2: se activa la variable del Game Over");
         moveTimer = -5f;
+    }
+
+    public void CanMove(bool activate)
+    {
+        canMove = activate;
+        // Debug.Log("Es pot moure? " + canMove);
     }
 }

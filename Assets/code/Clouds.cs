@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CloudsTrigger : MonoBehaviour
 {
+    public PlayerMovement playerMovement;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the collider that entered the trigger is the player
@@ -16,7 +18,11 @@ public class CloudsTrigger : MonoBehaviour
             switch (cloudName)
             {
                 case "Cloud1":
-                    other.transform.position = new Vector3(0f, 110f, other.transform.position.z);
+                    bool doubleJump = PlayerMovement.canDoubleJump;
+                    if (doubleJump)
+                    {
+                        other.transform.position = new Vector3(0f, 110f, other.transform.position.z);
+                    }
                     break;
 
                 case "Cloud2":
