@@ -60,18 +60,19 @@ public class PlayerHealth : MonoBehaviour
         // if (playerM != null)
         // {
             // Debug.Log("Detecta playerMovement");
+            // Debug.Log("Paso 3: se Llama a la función Respawn");
             bool dash = GetComponent<PlayerMovement>().canDash;
             bool walljump = GetComponent<PlayerMovement>().canWallJumpAndSlide;
             bool doubleJump = GetComponent<PlayerMovement>().canDoubleJump;
             bool redKey = GetComponent<PlayerMovement>().hasRedKey;
             bool greenKey = GetComponent<PlayerMovement>().hasGreenKey;
             bool blueKey = GetComponent<PlayerMovement>().hasBlueKey;
-            if(gameOver)
-            {
-                Restart();
-                Debug.Log("CONGRATULATIONS: YOU HAVE SUCCESFULLY COMPLETED THE GAME");
-            }
-            else if(dash && walljump && doubleJump && redKey && greenKey && blueKey && greenDoorOpen && blueDoorOpen && redDoorOpen && !gameOver)
+            // if(gameOver)
+            // {
+            //     Restart();
+            //     Debug.Log("CONGRATULATIONS: YOU HAVE SUCCESFULLY COMPLETED THE GAME");
+            // }
+            if(dash && walljump && doubleJump && redKey && greenKey && blueKey && greenDoorOpen && blueDoorOpen && redDoorOpen && !gameOver)
             {
                 transform.position = new Vector3(checkpointCoordinates.x, checkpointCoordinates.y, transform.position.z);
                 // Debug.Log("tp a checkpoint");
@@ -128,11 +129,14 @@ public class PlayerHealth : MonoBehaviour
     public void ActivateFinal(bool activate)
     {
         gameOver = activate;
-        Respawn();
+        Debug.Log("CONGRATULATIONS: YOU HAVE SUCCESFULLY COMPLETED THE GAME");
+        // Debug.Log("Paso 2: se activa la variable del Game Over");
+        Restart();
     }
 
     private void Restart() 
     {
+        // Debug.Log("Paso 5: se Llama a la función Restart");
         transform.position = new Vector3(respawnCoordinates.x, respawnCoordinates.y, transform.position.z);
         // if (dashItemScript != null)
         // {
@@ -156,12 +160,12 @@ public class PlayerHealth : MonoBehaviour
             walljumpItemScript.Respawn();
         }
 
-        FinalItemScript finalItemScript = FindObjectOfType<FinalItemScript>();
-        if (finalItemScript != null)
-        {
-            // Debug.Log("DEVUELVE ITEM WALJUM");
-            finalItemScript.Respawn();
-        }
+        // FinalItemScript finalItemScript = FindObjectOfType<FinalItemScript>();
+        // if (finalItemScript != null)
+        // {
+        //     // Debug.Log("DEVUELVE ITEM WALJUM");
+        //     finalItemScript.Respawn();
+        // }
 
         RedKeyItemScript redKeyItemScript = FindObjectOfType<RedKeyItemScript>();
         if (redKeyItemScript != null)
@@ -237,8 +241,10 @@ public class PlayerHealth : MonoBehaviour
         redDoorOpen = false;
         greenDoorOpen = false;
         blueDoorOpen = false;
+        gameOver = false;
         // Debug.Log("DEVUELVE ITEMS");
         // }
         // Debug.Log("tp a 0,0");
+        Debug.Log("Paso 7: todos los objetos vuelven a su posición");
     }
 }
