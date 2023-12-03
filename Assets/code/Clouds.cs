@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CloudsTrigger : MonoBehaviour
 {
-    public PlayerMovement playerMovement;
+    public PlayerHealth playerHealth;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -18,8 +18,9 @@ public class CloudsTrigger : MonoBehaviour
             switch (cloudName)
             {
                 case "Cloud1":
-                    bool doubleJump = PlayerMovement.canDoubleJump;
-                    if (doubleJump)
+                    bool highItem = playerHealth.hasHighItem;
+                    Debug.Log("tine el high item" + highItem);
+                    if (highItem)
                     {
                         other.transform.position = new Vector3(0f, 110f, other.transform.position.z);
                     }

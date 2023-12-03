@@ -12,6 +12,7 @@ TagManager:
   - FinalDoor
   - NormalDoor
   - PauseElement
+  - Coin
   layers:
   - Default
   - TransparentFX

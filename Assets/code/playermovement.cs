@@ -25,6 +25,13 @@ public class PlayerMovement : MonoBehaviour
     public static bool hasGreenKey = false;
     public static bool hasBlueKey = false; // Can dash
 
+    public static int coinCount = 0;
+
+    private float startTime;
+    public static float elapsedTime;
+    public static float bestTime = float.MaxValue;
+
+
     private Rigidbody2D rb;
     private Collider2D playerCollider;
 
@@ -97,6 +104,16 @@ public class PlayerMovement : MonoBehaviour
         remainDoubleJump = canDoubleJump;
         canMove = false;
         starts = true;
+        startTime = Time.time;
+        canWallJumpAndSlide = false; // New variable for enabling/disabling wall jump and slide
+        canDoubleJump = false;
+        canDash = false; // Can dash
+
+        hasRedKey = false; // New variable for enabling/disabling wall jump and slide
+        hasGreenKey = false;
+        hasBlueKey = false; // Can dash
+
+        coinCount = 0;
     }
 
     private void Update()
@@ -509,6 +526,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void ActivateFinal(bool activate)
     {
+        elapsedTime = Time.time - startTime;
+        if (elapsedTime < bestTime)
+        {
+            bestTime = elapsedTime;
+        }
         gameOver = activate;
         Debug.Log("CONGRATULATIONS: YOU HAVE SUCCESFULLY COMPLETED THE GAME");
         // Debug.Log("Paso 2: se activa la variable del Game Over");
@@ -518,6 +540,13 @@ public class PlayerMovement : MonoBehaviour
     public void CanMove(bool activate)
     {
         canMove = activate;
+        // Debug.Log("Es pot moure? " + canMove);
+    }
+
+    public void CoinCount()
+    {
+        coinCount++;
+        Debug.Log("Coins: " + coinCount);
         // Debug.Log("Es pot moure? " + canMove);
     }
 }

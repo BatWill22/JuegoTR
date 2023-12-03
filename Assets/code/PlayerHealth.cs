@@ -15,6 +15,9 @@ public class PlayerHealth : MonoBehaviour
     public bool greenDoorOpen = false;
     public bool blueDoorOpen = false;
 
+    public bool hasHighItem = false;
+    private bool isInFinalZone = false;
+
     // public DashItemScript dashItemScript;
 
     // Start is called before the first frame update
@@ -71,7 +74,7 @@ public class PlayerHealth : MonoBehaviour
             //     Restart();
             //     Debug.Log("CONGRATULATIONS: YOU HAVE SUCCESFULLY COMPLETED THE GAME");
             // }
-            if(dash && walljump && doubleJump && redKey && greenKey && blueKey && greenDoorOpen && blueDoorOpen && redDoorOpen)
+            if(dash && walljump && doubleJump && redKey && greenKey && blueKey && greenDoorOpen && blueDoorOpen && redDoorOpen && isInFinalZone)
             {
                 transform.position = new Vector3(checkpointCoordinates.x, checkpointCoordinates.y, transform.position.z);
                 // Debug.Log("tp a checkpoint");
@@ -80,6 +83,8 @@ public class PlayerHealth : MonoBehaviour
             {
                 Restart();
                 SceneManager.LoadScene("DeathMenu");
+                int coin = PlayerMovement.coinCount;
+                Debug.Log("Coins: " + coin);
             }
         // }
         // else
@@ -124,6 +129,17 @@ public class PlayerHealth : MonoBehaviour
     public void ActivateBlueDoor(bool activate)
     {
         blueDoorOpen = activate;
+    }
+
+    public void ActivateHigh(bool activate)
+    {
+        hasHighItem = activate;
+    }
+    
+    public void ActivateFinalTriggerZone(bool activate)
+    {
+        isInFinalZone = activate;
+        Debug.Log("Is In Final Zone: " +  isInFinalZone);
     }
 
     // public void ActivateFinal(bool activate)
@@ -238,9 +254,19 @@ public class PlayerHealth : MonoBehaviour
             enemy.Respawn(); // Replace YourFunction() with the actual function you want to call
         }
 
+        GameObject[] coins = GameObject.FindGameObjectsWithTag("Coin");
+
+        // Call Respawn function on each coin
+        foreach (GameObject coin in coins)
+        {
+            coin.GetComponent<Coin>().Respawn();
+        }
+
         redDoorOpen = false;
         greenDoorOpen = false;
         blueDoorOpen = false;
+
+        hasHighItem = false;
         // Debug.Log("DEVUELVE ITEMS");
         // }
         // Debug.Log("tp a 0,0");
