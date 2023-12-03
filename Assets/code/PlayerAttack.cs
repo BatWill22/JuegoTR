@@ -96,7 +96,7 @@ public class PlayerAttack : MonoBehaviour
         // Calculate the direction to push the enemy
         Vector2 pushDirection = Vector2.right;
 
-        playerMovement.KnockBack(pushDirection, pushForce);
+        // playerMovement.KnockBack(pushDirection, pushForce);
 
         if (hit.collider != null)
         {
@@ -213,7 +213,7 @@ public class PlayerAttack : MonoBehaviour
 
         // Calculate the direction to push the enemy
         Vector2 pushDirection = Vector2.left;
-        playerMovement.KnockBack(pushDirection, pushForce);
+        // playerMovement.KnockBack(pushDirection, pushForce);
 
         if (hit.collider != null)
         {

@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
     public int facingX = 1; // -1 for left, 1 for right
     public int facingY = 0; // -1 for down, 1 for up, 0 for no direction
 
-    public float dashForce = 10f; // Dash force
+    public float dashForce = 10000f; // Dash force
     public float dashDuration = 0.2f; // Dash duration
     public float dashCooldown = 2f; // Dash cooldown
     private bool isDashing = false; // Is currently dashing
@@ -79,6 +79,10 @@ public class PlayerMovement : MonoBehaviour
     public bool gameOver = false;
     private bool starts;
     private bool notPaused = true;
+
+    
+    private bool rightRaycastHit;
+    private bool leftRaycastHit;
 
     public void ResetToLastCheckZonePosition()
     {
@@ -119,7 +123,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        
         if (moveTimer <= delayBeforeMove)
         {
             moveTimer += Time.deltaTime;
@@ -154,15 +157,23 @@ public class PlayerMovement : MonoBehaviour
             isCheckGrounded = playerCollider.IsTouchingLayers(groundLayer);
             //Calcular si isGrounded
             // Calculate positions for raycasts
-            Vector3 rightRaycastOrigin = transform.position + new Vector3(playerCollider.bounds.extents.x, 0f, 0f);
-            Vector3 leftRaycastOrigin = transform.position - new Vector3(playerCollider.bounds.extents.x, 0f, 0f);
+            Vector3 rightRaycastOrigin = transform.position + new Vector3(playerCollider.bounds.extents.x*0.85f, 0f, 0f);
+            Vector3 leftRaycastOrigin = transform.position - new Vector3(playerCollider.bounds.extents.x*0.85f, 0f, 0f);
             Vector3 centerRaycastOrigin = transform.position;
             // Perform raycasts
-            bool rightRaycastHit = Physics2D.Raycast(rightRaycastOrigin, Vector2.down, playerCollider.bounds.extents.y + 0.05f, wallLayer);
-            bool leftRaycastHit = Physics2D.Raycast(leftRaycastOrigin, Vector2.down, playerCollider.bounds.extents.y + 0.05f, wallLayer);
+            if (!isDashing)
+            {
+                rightRaycastHit = Physics2D.Raycast(rightRaycastOrigin, Vector2.down, playerCollider.bounds.extents.y + 0.05f, wallLayer);
+                leftRaycastHit = Physics2D.Raycast(leftRaycastOrigin, Vector2.down, playerCollider.bounds.extents.y + 0.05f, wallLayer);
+            }
+            else
+            {
+                rightRaycastHit = false;
+                leftRaycastHit = false;
+            }
             bool centerRaycastHit = Physics2D.Raycast(centerRaycastOrigin, Vector2.down, playerCollider.bounds.extents.y + 0.05f, wallLayer);
             // Check if any of the raycasts hit the ground
-            isGrounded = playerCollider.IsTouchingLayers(groundLayer) || (playerCollider.IsTouchingLayers(wallLayer) && (rightRaycastHit || leftRaycastHit || centerRaycastHit || isCheckGrounded));
+            isGrounded = playerCollider.IsTouchingLayers(groundLayer) || (playerCollider.IsTouchingLayers(wallLayer) && (rightRaycastHit || leftRaycastHit || centerRaycastHit /*|| isCheckGrounded*/));
 
             // Calculate positions for raycasts on Y
             // Vector3 upRaycastOrigin = transform.position + new Vector3(0f, playerCollider.bounds.extents.y, 0f);
@@ -205,6 +216,169 @@ public class PlayerMovement : MonoBehaviour
                 dashCooldownTimer = dashCooldown;
             }
 
+
+            Vector2 velocity2 = rb.velocity;
+
+            if (Input.GetKeyDown(KeyCode.Space)) //When press space down
+            {
+                if (isGrounded)
+                {
+                    velocity2 = new Vector2(rb.velocity.x, jumpForce);
+
+                    keepJumping = true;
+                    jumpTimer = 0f;
+                }
+                else if (isWallSliding && !wallJumpCooldownActive)
+                {
+                    Vector2 wallJumpDirection = isWallOnRight ? Vector2.left : Vector2.right;
+                    isWallSliding = false;
+                    jumpedFromRight = isWallOnRight;
+                    velocity2 = wallJumpDirection * jumpForce;
+                    wallJumpCooldownActive = true;
+                    timeSinceWallJump = 0f;
+                    keepJumping = true;
+                    jumpTimer = 0f;
+                }
+                else if (canDoubleJump && remainDoubleJump)
+                {
+                    if (wallJumpCooldownActive)
+                    {
+                        wallJumpCooldownActive = false;
+                    }
+                    remainDoubleJump = false;
+                    Debug.Log("YA NO PUEDES PASARRR(SALTAR)");
+                    velocity2 = new Vector2(rb.velocity.x, jumpForce);
+                    keepJumping = true;
+                    jumpTimer = 0f;
+                }
+                rb.velocity = velocity2;
+            }
+
+            if (canWallJumpAndSlide)
+            {
+                if (Input.GetKey("d") || Input.GetKey("a") && !isGrounded)
+                {
+                    isWallSliding = isTouchingWall;
+                }
+
+                if (isGrounded || (isWallSliding && isWallOnRight && Input.GetKey("a")) || (isWallSliding && isWallOnLeft && Input.GetKey("d")) || !isTouchingWall)
+                {
+                    isWallSliding = false;
+                }
+            }
+
+            if (Input.GetKeyUp(KeyCode.Space)) // Stop jumping when stop pressing space
+            {
+                keepJumping = false;
+            }
+            if ((isGrounded || isWallSliding) && canDoubleJump) //allow double jump when touching ground/wall
+            {
+                remainDoubleJump = true;
+                // Debug.Log("RemainDoubleJump");
+                if (isWallSliding)
+                {
+                    Debug.Log("Wall Sliding: " + isWallSliding);
+                }
+                if (isGrounded)
+                {
+                    Debug.Log("Grounded: " + isGrounded);
+                }
+                // Debug.Log("Is Grounded" + isGrounded);
+            }
+
+            // Log variables to the console.
+            //Debug.Log("y Velocity: " + rb.velocity.y);
+            //Debug.Log("Touching Wall: " + isTouchingWall);
+            //Debug.Log("Wall Sliding: " + isWallSliding);
+            //Debug.Log("wallJump Cooldown: " + wallJumpCooldownActive);
+            //Debug.Log("Keep Jumping: " + keepJumping);
+            //Debug.Log("left Wall: " + isWallOnLeft);
+            //Debug.Log("Remain Double Jump: " + remainDoubleJump);
+            // Debug.Log("x: " + facingX);
+            // Debug.Log("y: " + facingY);
+            //Debug.Log("is dashing: " + isDashing);
+            //Debug.Log("jumped from right: " + jumpedFromRight);
+            //Debug.Log("grounded: " + isGrounded);
+
+            float verticalInput = Input.GetAxisRaw("Vertical"); // Added vertical input
+
+            //Facing direction in X
+            if ( isWallSliding)
+            {
+                //Debug.Log("x: " + facingX);
+                if (isWallOnRight)
+                {
+                    facingX = -1;
+                }
+                else
+                {
+                    facingX = 1;
+                }
+            }
+            else if (wallJumpCooldownActive)
+            {
+                if (jumpedFromRight)
+                {
+                    facingX = -1;
+                }
+                else 
+                {
+                    facingX = 1;
+                }
+            }
+            else if (!isDashing)
+            {
+                if (Input.GetKeyDown("d") || Input.GetKey("d"))
+                {
+                    facingX = 1;
+                }
+                else if (Input.GetKeyDown("a") || Input.GetKey("a"))
+                {
+                    facingX = -1;
+                }
+            }
+
+            // Update facingY based on vertical input
+            if (verticalInput > 0)
+            {
+                facingY = 1;
+            }
+            else if (verticalInput < 0)
+            {
+                facingY = -1;
+            }
+            else
+            {
+                facingY = 0;
+            }
+
+
+            // para activar y desactivar las habilidades
+            // if (Input.GetKeyDown("i"))
+            // {
+            //     canDash = !canDash;
+            // }
+            // if (Input.GetKeyDown("o"))
+            // {
+            //     canDoubleJump = !canDoubleJump;
+            // }
+            // if (Input.GetKeyDown("p"))
+            // {
+            //     canWallJumpAndSlide = !canWallJumpAndSlide;
+            // }
+        }
+        else
+        {
+            // Debug.Log("rb velocity es 0");
+            rb.gravityScale = 0f;
+            rb.velocity = Vector2.zero;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (canMove)
+        {
             // Update dash timers
             if (dashCooldownTimer > 0)
             {
@@ -220,53 +394,6 @@ public class PlayerMovement : MonoBehaviour
             }
 
             Vector2 velocity = rb.velocity;
-
-            if (Input.GetKeyDown(KeyCode.Space)) //When press space down
-            {
-                if (isGrounded)
-                {
-                    velocity = new Vector2(rb.velocity.x, jumpForce);
-
-                    keepJumping = true;
-                    jumpTimer = 0f;
-                }
-                else if (isWallSliding && !wallJumpCooldownActive)
-                {
-                    Vector2 wallJumpDirection = isWallOnRight ? Vector2.left : Vector2.right;
-                    isWallSliding = false;
-                    jumpedFromRight = isWallOnRight;
-                    velocity = wallJumpDirection * jumpForce;
-                    wallJumpCooldownActive = true;
-                    timeSinceWallJump = 0f;
-                    keepJumping = true;
-                    jumpTimer = 0f;
-                }
-                else if (canDoubleJump && remainDoubleJump)
-                {
-                    if (wallJumpCooldownActive)
-                    {
-                        wallJumpCooldownActive = false;
-                    }
-                    remainDoubleJump = false;
-                    velocity = new Vector2(rb.velocity.x, jumpForce);
-                    keepJumping = true;
-                    jumpTimer = 0f;
-                }
-                rb.velocity = velocity;
-            }
-
-            if (canWallJumpAndSlide)
-            {
-                if (Input.GetKey("d") || Input.GetKey("a") && !isGrounded)
-                {
-                    isWallSliding = isTouchingWall;
-                }
-
-                if (isGrounded || (isWallSliding && isWallOnRight && Input.GetKey("a")) || (isWallSliding && isWallOnLeft && Input.GetKey("d")) || !isTouchingWall)
-                {
-                    isWallSliding = false;
-                }
-            }
 
             float horizontalInput = Input.GetAxisRaw("Horizontal");
 
@@ -368,96 +495,6 @@ public class PlayerMovement : MonoBehaviour
                     timeSinceKnockBack = 0f;
                 }
             }
-
-            if (Input.GetKeyUp(KeyCode.Space)) // Stop jumping when stop pressing space
-            {
-                keepJumping = false;
-            }
-            if ((isGrounded || isWallSliding) && canDoubleJump) //allow double jump when touching ground/wall
-            {
-                remainDoubleJump = true;
-            }
-
-            // Log variables to the console.
-            //Debug.Log("y Velocity: " + rb.velocity.y);
-            //Debug.Log("Touching Wall: " + isTouchingWall);
-            //Debug.Log("Wall Sliding: " + isWallSliding);
-            //Debug.Log("wallJump Cooldown: " + wallJumpCooldownActive);
-            //Debug.Log("Keep Jumping: " + keepJumping);
-            //Debug.Log("left Wall: " + isWallOnLeft);
-            //Debug.Log("Remain Double Jump: " + remainDoubleJump);
-            // Debug.Log("x: " + facingX);
-            // Debug.Log("y: " + facingY);
-            //Debug.Log("is dashing: " + isDashing);
-            //Debug.Log("jumped from right: " + jumpedFromRight);
-            //Debug.Log("grounded: " + isGrounded);
-
-            float verticalInput = Input.GetAxisRaw("Vertical"); // Added vertical input
-
-            //Facing direction in X
-            if ( isWallSliding)
-            {
-                //Debug.Log("x: " + facingX);
-                if (isWallOnRight)
-                {
-                    facingX = -1;
-                }
-                else
-                {
-                    facingX = 1;
-                }
-            }
-            else if (wallJumpCooldownActive)
-            {
-                if (jumpedFromRight)
-                {
-                    facingX = -1;
-                }
-                else 
-                {
-                    facingX = 1;
-                }
-            }
-            else if (!isDashing)
-            {
-                if (Input.GetKeyDown("d") || Input.GetKey("d"))
-                {
-                    facingX = 1;
-                }
-                else if (Input.GetKeyDown("a") || Input.GetKey("a"))
-                {
-                    facingX = -1;
-                }
-            }
-
-            // Update facingY based on vertical input
-            if (verticalInput > 0)
-            {
-                facingY = 1;
-            }
-            else if (verticalInput < 0)
-            {
-                facingY = -1;
-            }
-            else
-            {
-                facingY = 0;
-            }
-
-
-            // para activar y desactivar las habilidades
-            // if (Input.GetKeyDown("i"))
-            // {
-            //     canDash = !canDash;
-            // }
-            // if (Input.GetKeyDown("o"))
-            // {
-            //     canDoubleJump = !canDoubleJump;
-            // }
-            // if (Input.GetKeyDown("p"))
-            // {
-            //     canWallJumpAndSlide = !canWallJumpAndSlide;
-            // }
         }
         else
         {
