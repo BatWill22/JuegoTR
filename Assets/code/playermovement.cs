@@ -78,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
     public bool gameOver = false;
     private bool starts;
+    private bool notPaused = true;
 
     public void ResetToLastCheckZonePosition()
     {
@@ -127,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (moveTimer >= delayBeforeMove)
         {
-            if (hasBeenHit)
+            if (hasBeenHit && notPaused)
             {
                 rb.gravityScale = 10f;
                 transform.position = lastCheckGroundPosition; // Set the player's position to the last ground position
@@ -535,6 +536,13 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("CONGRATULATIONS: YOU HAVE SUCCESFULLY COMPLETED THE GAME");
         // Debug.Log("Paso 2: se activa la variable del Game Over");
         moveTimer = -5f;
+    }
+
+    public void NotPaused(bool activate)
+    {
+        canMove = activate;
+        notPaused = activate;
+        // Debug.Log("Es pot moure? " + canMove);
     }
 
     public void CanMove(bool activate)

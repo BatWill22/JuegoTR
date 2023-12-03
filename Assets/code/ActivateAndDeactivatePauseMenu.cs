@@ -26,7 +26,7 @@ public class ActivateAndDeactivatePauseMenu : MonoBehaviour
                 canvas.SetActive(true);
                 if (playerMovement != null)
                 {
-                    playerMovement.CanMove(false);
+                    playerMovement.NotPaused(false);
                 }
                 if (playerAttack != null)
                 {
@@ -51,7 +51,7 @@ public class ActivateAndDeactivatePauseMenu : MonoBehaviour
         canvas.SetActive(false);
         if (playerMovement != null)
         {
-            playerMovement.CanMove(true);
+            playerMovement.NotPaused(true);
         }
         if (playerAttack != null)
         {
