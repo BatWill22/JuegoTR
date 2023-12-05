@@ -56,6 +56,30 @@ TagManager:
   - name: Map elements
     uniqueID: 2195888609
     locked: 0
+  - name: Map4
+    uniqueID: 1638950779
+    locked: 0
+  - name: Map 5
+    uniqueID: 3870196507
+    locked: 0
+  - name: Map1
+    uniqueID: 608622855
+    locked: 0
+  - name: Map2
+    uniqueID: 3021877843
+    locked: 0
+  - name: Map3
+    uniqueID: 3095546215
+    locked: 0
+  - name: MapElements
+    uniqueID: 3199426955
+    locked: 0
+  - name: Main elements
+    uniqueID: 1148273641
+    locked: 0
+  - name: Mapa Delante
+    uniqueID: 829030091
+    locked: 0
   - name: Menu background
     uniqueID: 1013774925
     locked: 0
