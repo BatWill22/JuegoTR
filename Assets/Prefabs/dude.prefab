@@ -143,6 +143,7 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
+  playerCollider: {fileID: 7658582994137061508}
   lastCheckGroundPosition: {x: 0, y: 0, z: 0}
   isGrounded: 1
   facingX: 1

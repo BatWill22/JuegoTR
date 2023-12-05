@@ -166,9 +166,9 @@ public class PlayerMovement : MonoBehaviour
             float rayLengthFactor = 1.25f;
             //Calcular si isGrounded
             // Calculate positions for raycasts
-            Vector3 rightRaycastOrigin = collider.bounds.center + new Vector3(playerCollider.bounds.extents.x*0.85f, 0f, 0f);
-            Vector3 leftRaycastOrigin = collider.bounds.center - new Vector3(playerCollider.bounds.extents.x*0.85f, 0f, 0f);
-            Vector3 centerRaycastOrigin = collider.bounds.center;
+            Vector3 rightRaycastOrigin = playerCollider.bounds.center + new Vector3(playerCollider.bounds.extents.x*0.85f, 0f, 0f);
+            Vector3 leftRaycastOrigin = playerCollider.bounds.center - new Vector3(playerCollider.bounds.extents.x*0.85f, 0f, 0f);
+            Vector3 centerRaycastOrigin = playerCollider.bounds.center;
             // Perform raycasts
             if (!isDashing)
             {
@@ -189,9 +189,9 @@ public class PlayerMovement : MonoBehaviour
             Debug.DrawRay(centerRaycastOrigin, Vector2.down * (playerCollider.bounds.extents.y*rayLengthFactor), (playerCollider.IsTouchingLayers(groundLayer) || centerRaycastHit) ? Color.green : Color.red);
 
             // Calculate positions for raycasts on Y
-            Vector3 upRaycastOrigin = collider.bounds.center + new Vector3(0f, playerCollider.bounds.extents.y*0.85f, 0f);
-            Vector3 downRaycastOrigin = collider.bounds.center - new Vector3(0f, playerCollider.bounds.extents.y*0.85f, 0f);
-            Vector3 centerRaycastOriginY = collider.bounds.center;
+            Vector3 upRaycastOrigin = playerCollider.bounds.center + new Vector3(0f, playerCollider.bounds.extents.y*0.85f, 0f);
+            Vector3 downRaycastOrigin = playerCollider.bounds.center - new Vector3(0f, playerCollider.bounds.extents.y*0.85f, 0f);
+            Vector3 centerRaycastOriginY = playerCollider.bounds.center;
             // Perform raycasts
             bool upRaycastHitRight = Physics2D.Raycast(upRaycastOrigin, Vector2.right, playerCollider.bounds.extents.x*rayLengthFactor, wallLayer);
             bool downRaycastHitRight = Physics2D.Raycast(downRaycastOrigin, Vector2.right, playerCollider.bounds.extents.x*rayLengthFactor, wallLayer);
@@ -212,10 +212,10 @@ public class PlayerMovement : MonoBehaviour
             isWallOnRight = playerCollider.IsTouchingLayers(wallLayer) && (upRaycastHitRight || downRaycastHitRight || centerRaycastHitYRight);
             isWallOnLeft = playerCollider.IsTouchingLayers(wallLayer) && (upRaycastHitLeft || downRaycastHitLeft || centerRaycastHitYLeft);
 
-            // isWallOnRight = playerCollider.IsTouchingLayers(wallLayer) && Physics2D.Raycast(collider.bounds.center, Vector2.right, playerCollider.bounds.extents.x + 0.05f, wallLayer);
-            // isWallOnLeft = playerCollider.IsTouchingLayers(wallLayer) && Physics2D.Raycast(collider.bounds.center, Vector2.left, playerCollider.bounds.extents.x + 0.05f, wallLayer);
+            // isWallOnRight = playerCollider.IsTouchingLayers(wallLayer) && Physics2D.Raycast(playerCollider.bounds.center, Vector2.right, playerCollider.bounds.extents.x + 0.05f, wallLayer);
+            // isWallOnLeft = playerCollider.IsTouchingLayers(wallLayer) && Physics2D.Raycast(playerCollider.bounds.center, Vector2.left, playerCollider.bounds.extents.x + 0.05f, wallLayer);
             isTouchingWall = isWallOnLeft || isWallOnRight;
-            if (Physics2D.Raycast(centerRaycastOrigin, Vector2.up, playerCollider.bounds.extents.x*rayLengthFactor, wallLayer) && !Physics2D.Raycast(collider.bounds.center, Vector2.right, playerCollider.bounds.extents.x*rayLengthFactor, wallLayer) && !Physics2D.Raycast(collider.bounds.center, Vector2.left, playerCollider.bounds.extents.x*rayLengthFactor, wallLayer ))
+            if (Physics2D.Raycast(centerRaycastOrigin, Vector2.up, playerCollider.bounds.extents.x*rayLengthFactor, wallLayer) && !Physics2D.Raycast(playerCollider.bounds.center, Vector2.right, playerCollider.bounds.extents.x*rayLengthFactor, wallLayer) && !Physics2D.Raycast(playerCollider.bounds.center, Vector2.left, playerCollider.bounds.extents.x*rayLengthFactor, wallLayer ))
             {
                 isTouchingWall = false;
                 //Debug.Log("grounded: " + isGrounded);
@@ -228,8 +228,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
             //determine which side of the wall
-            // isWallOnRight = isTouchingWall && Physics2D.Raycast(collider.bounds.center, Vector2.right, 1f, wallLayer);
-            // isWallOnLeft = isTouchingWall && Physics2D.Raycast(collider.bounds.center, Vector2.left, 1f, wallLayer);
+            // isWallOnRight = isTouchingWall && Physics2D.Raycast(playerCollider.bounds.center, Vector2.right, 1f, wallLayer);
+            // isWallOnLeft = isTouchingWall && Physics2D.Raycast(playerCollider.bounds.center, Vector2.left, 1f, wallLayer);
 
             // Activate dash
             if (canDash && Input.GetKeyDown(KeyCode.LeftShift) && !isDashing && dashCooldownTimer <= 0)
