@@ -205,12 +205,20 @@ public class PlayerAttack : MonoBehaviour
                     break;
             }
         }
+
+        // show raycast in the scene view
+        Debug.DrawRay(transform.position, Vector2.right * attackRange, (hit.collider || hit2.collider || hit3.collider) ? Color.red : Color.green, 0.1f);
+
     }
 
     private void AttackLeft()
     {
         animator.SetTrigger("Attack");
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, attackRange, enemyLayer);
+
+        // show raycast in the scene view
+        Debug.DrawRay(transform.position, Vector2.left * attackRange, hit.collider ? Color.red : Color.green, 0.1f);
+
         // Adjust this force value based on your game's requirements
         float pushForce = 3.5f;
 
@@ -316,6 +324,10 @@ public class PlayerAttack : MonoBehaviour
                     break;
             }
         }
+
+        // show raycast in the scene view
+        Debug.DrawRay(transform.position, Vector2.left * attackRange, (hit.collider || hit2.collider || hit3.collider) ? Color.red : Color.green, 0.1f);
+
     }
 
     private void AttackUp()
@@ -351,6 +363,10 @@ public class PlayerAttack : MonoBehaviour
         {
             playerMovement.KnockBack(pushDirection, pushForce);
         }
+
+        // show raycast in the scene view
+        Debug.DrawRay(transform.position, Vector2.up * attackRange, (hit.collider || hit2.collider) ? Color.red : Color.green, 0.1f);
+
     }
 
     private void AttackDown()
@@ -385,9 +401,9 @@ public class PlayerAttack : MonoBehaviour
         Vector3 leftRaycastOrigin = transform.position - new Vector3(playerCollider.bounds.extents.x, 0f, 0f);
         Vector3 centerRaycastOrigin = transform.position;
         // Perform raycasts
-        bool rightRaycastHit = Physics2D.Raycast(rightRaycastOrigin, Vector2.down, 5f, obstacleLayer);
-        bool leftRaycastHit = Physics2D.Raycast(leftRaycastOrigin, Vector2.down, 5f, obstacleLayer);
-        bool centerRaycastHit = Physics2D.Raycast(centerRaycastOrigin, Vector2.down, 5f, obstacleLayer);
+        bool rightRaycastHit = Physics2D.Raycast(rightRaycastOrigin, Vector2.down, attackRange, obstacleLayer);
+        bool leftRaycastHit = Physics2D.Raycast(leftRaycastOrigin, Vector2.down, attackRange, obstacleLayer);
+        bool centerRaycastHit = Physics2D.Raycast(centerRaycastOrigin, Vector2.down, attackRange, obstacleLayer);
 
         if (rightRaycastHit || leftRaycastHit || centerRaycastHit)
         {
@@ -402,6 +418,11 @@ public class PlayerAttack : MonoBehaviour
         // {
         //     playerMovement.KnockBack(pushDirection, pushForce);
         // }
+
+        // show raycast in the scene view
+        Debug.DrawRay(transform.position, Vector2.down * attackRange, (hit.collider || centerRaycastHit) ? Color.red : Color.green, 0.1f);
+        Debug.DrawRay(rightRaycastOrigin, Vector2.down * attackRange, rightRaycastHit ? Color.red : Color.green, 0.1f);
+        Debug.DrawRay(leftRaycastOrigin, Vector2.down * attackRange, leftRaycastHit ? Color.red : Color.green, 0.1f);
     }
 
     private IEnumerator AttackCooldown()
