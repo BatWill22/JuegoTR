@@ -143,7 +143,6 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
-  playerCollider: {fileID: 7658582994137061508}
   lastCheckGroundPosition: {x: 0, y: 0, z: 0}
   isGrounded: 1
   facingX: 1
@@ -165,6 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f354c21c011f87c4e8922bf995151be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1618947331966654074}
   redDoor: {fileID: 0}
   greenDoor: {fileID: 0}
   blueDoor: {fileID: 0}

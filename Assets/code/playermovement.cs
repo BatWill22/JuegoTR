@@ -123,14 +123,24 @@ public class PlayerMovement : MonoBehaviour
         coinCount = 0;
     }
 
-    private void UpdateJumpAnimation()
+    private void UpdateAnimations()
     {
         animator.SetBool("isGrounded", isGrounded);
+        animator.SetFloat("Y.rb.velocity", rb.velocity.y);
+        // Debug.Log("velocity en x: " + rb.velocity.x);
+        if(isGrounded && (rb.velocity.x != 0f) && ( Input.GetKeyDown("a") || Input.GetKey("a") || Input.GetKeyDown("d") || Input.GetKey("d")))
+        {
+            animator.SetBool("isRunning", true);
+        }
+        else
+        {
+            animator.SetBool("isRunning", false);
+        }
     }
 
     private void Update()
     {
-        UpdateJumpAnimation();
+        UpdateAnimations();
         if (moveTimer <= delayBeforeMove)
         {
             moveTimer += Time.deltaTime;
@@ -218,7 +228,7 @@ public class PlayerMovement : MonoBehaviour
             if (Physics2D.Raycast(centerRaycastOrigin, Vector2.up, playerCollider.bounds.extents.x*rayLengthFactor, wallLayer) && !Physics2D.Raycast(playerCollider.bounds.center, Vector2.right, playerCollider.bounds.extents.x*rayLengthFactor, wallLayer) && !Physics2D.Raycast(playerCollider.bounds.center, Vector2.left, playerCollider.bounds.extents.x*rayLengthFactor, wallLayer ))
             {
                 isTouchingWall = false;
-                //Debug.Log("grounded: " + isGrounded);
+                // Debug.Log("Pasa Por aki");
             }
 
             //Keep Checkground Position
@@ -266,12 +276,13 @@ public class PlayerMovement : MonoBehaviour
                 }
                 else if (canDoubleJump && remainDoubleJump)
                 {
+                    animator.SetTrigger("Jump");
                     if (wallJumpCooldownActive)
                     {
                         wallJumpCooldownActive = false;
                     }
                     remainDoubleJump = false;
-                    Debug.Log("YA NO PUEDES PASARRR(SALTAR)");
+                    // Debug.Log("YA NO PUEDES PASARRR(SALTAR)");
                     velocity2 = new Vector2(rb.velocity.x, jumpForce);
                     keepJumping = true;
                     jumpTimer = 0f;
@@ -300,14 +311,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 remainDoubleJump = true;
                 // Debug.Log("RemainDoubleJump");
-                if (isWallSliding)
-                {
-                    Debug.Log("Wall Sliding: " + isWallSliding);
-                }
-                if (isGrounded)
-                {
-                    Debug.Log("Grounded: " + isGrounded);
-                }
+                // if (isWallSliding)
+                // {
+                //     Debug.Log("Wall Sliding: " + isWallSliding);
+                // }
+                // if (isGrounded)
+                // {
+                //     Debug.Log("Grounded: " + isGrounded);
+                // }
                 // Debug.Log("Is Grounded" + isGrounded);
             }
 
@@ -411,7 +422,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        animator.SetBool("isRunning", false);
+        // animator.SetBool("isRunning", false);
         if (canMove)
         {
             // Update dash timers
@@ -499,9 +510,9 @@ public class PlayerMovement : MonoBehaviour
                     {
                         Vector2 movement = new Vector2(horizontalVelocity, rb.velocity.y);
                         velocity = movement;
-                        if (horizontalInput != 0)
+                        if ((horizontalInput != 0) && isGrounded)
                         {
-                            animator.SetBool("isRunning", true);
+                            // animator.SetBool("isRunning", true);
                         }
                     }
             }

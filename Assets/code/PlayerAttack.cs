@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
 
     // Add reference to your Animator component
     // private Animator animator;
+    [SerializeField] private Animator animator;
     
     private float attackRange = 5f; // Set your attack range here
 
@@ -88,6 +89,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void AttackRight()
     {
+        animator.SetTrigger("Attack");
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, attackRange, enemyLayer);
         
         // Adjust this force value based on your game's requirements
@@ -207,6 +209,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void AttackLeft()
     {
+        animator.SetTrigger("Attack");
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, attackRange, enemyLayer);
         // Adjust this force value based on your game's requirements
         float pushForce = 3.5f;
