@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
     public int maxHealth = 7;
     public int currentHealth;
     public Vector2 respawnCoordinates = new Vector2(0, 1);
@@ -26,6 +27,14 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = maxHealth;
         // dashItemScript = GetComponent<DashItemScript>();
     }
+    IEnumerator WaitForTwoSeconds()
+    {
+        // Wait for 2 seconds
+        yield return new WaitForSeconds(2f);
+
+        // Code after the 2-second delay
+        Debug.Log("Two seconds have passed!");
+    }
 
     // Public function to decrease player's health
     public void TakeDamage(int damageAmount)
@@ -38,11 +47,14 @@ public class PlayerHealth : MonoBehaviour
             {
                 // Player is defeated, respawn the player
                 Respawn(); //hacer que si tienes las tres llaves y las tres habilidades reaparezcas en la zona final en vez de morir, a modo de unico checkpoint
+                animator.SetTrigger("Die");
+                StartCoroutine(WaitForTwoSeconds());
             }
             else
             {
                 StartCoroutine(StartInvincibility());
                 Debug.Log("HEALTH POINTS: " + currentHealth);
+                animator.SetTrigger("GetHurt");
             }
         }
     }
@@ -77,6 +89,7 @@ public class PlayerHealth : MonoBehaviour
             if(dash && walljump && doubleJump && redKey && greenKey && blueKey && greenDoorOpen && blueDoorOpen && redDoorOpen && isInFinalZone)
             {
                 transform.position = new Vector3(checkpointCoordinates.x, checkpointCoordinates.y, transform.position.z);
+                
                 // Debug.Log("tp a checkpoint");
             }
             else

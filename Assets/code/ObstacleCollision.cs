@@ -2,12 +2,15 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
 
     public PlayerHealth playerHealth;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+        
+        animator.SetTrigger("Die");
 
         if (playerHealth != null)
         {

@@ -11,7 +11,7 @@ public class PlayerAttack : MonoBehaviour
     // private Animator animator;
     [SerializeField] private Animator animator;
     
-    private float attackRange = 5f; // Set your attack range here
+    private float attackRange = 2f; // Set your attack range here
 
     int facingX;
     int facingY;
@@ -35,6 +35,8 @@ public class PlayerAttack : MonoBehaviour
     // Adjust this value based on your desired cooldown time (in seconds)
     public float attackCooldown = 0.75f;
 
+    private bool moves = false;
+
     // Add reference to your attack sound effect
     // public AudioClip attackSound;
 
@@ -52,10 +54,11 @@ public class PlayerAttack : MonoBehaviour
             facingY = playerMovement.facingY;
             // Debug.Log("facingX: " + facingX);
             // Debug.Log("facingY: " + facingY);
+            moves = playerMovement.canMove;
         }
 
         // Check for the attack input, e.g., you might use the spacebar
-        if (Input.GetButtonDown("Fire1") && canAttack)
+        if (Input.GetButtonDown("Fire1") && canAttack && moves)
         {
             // Trigger the attack animation
             // animator.SetTrigger("Attack");
@@ -207,7 +210,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         // show raycast in the scene view
-        Debug.DrawRay(transform.position, Vector2.right * attackRange, (hit.collider || hit2.collider || hit3.collider) ? Color.red : Color.green, 0.1f);
+        // Debug.DrawRay(transform.position, Vector2.right * attackRange, (hit.collider || hit2.collider || hit3.collider) ? Color.red : Color.green, 0.1f);
 
     }
 
@@ -217,7 +220,7 @@ public class PlayerAttack : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.left, attackRange, enemyLayer);
 
         // show raycast in the scene view
-        Debug.DrawRay(transform.position, Vector2.left * attackRange, hit.collider ? Color.red : Color.green, 0.1f);
+        // Debug.DrawRay(transform.position, Vector2.left * attackRange, hit.collider ? Color.red : Color.green, 0.1f);
 
         // Adjust this force value based on your game's requirements
         float pushForce = 3.5f;
@@ -326,13 +329,14 @@ public class PlayerAttack : MonoBehaviour
         }
 
         // show raycast in the scene view
-        Debug.DrawRay(transform.position, Vector2.left * attackRange, (hit.collider || hit2.collider || hit3.collider) ? Color.red : Color.green, 0.1f);
+        // Debug.DrawRay(transform.position, Vector2.left * attackRange, (hit.collider || hit2.collider || hit3.collider) ? Color.red : Color.green, 0.1f);
 
     }
 
     private void AttackUp()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, attackRange, enemyLayer);
+        animator.SetTrigger("AttackUp");
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 2*attackRange, enemyLayer);
 
         // Adjust this force value based on your game's requirements
         float pushForce = 3.5f;
@@ -365,13 +369,14 @@ public class PlayerAttack : MonoBehaviour
         }
 
         // show raycast in the scene view
-        Debug.DrawRay(transform.position, Vector2.up * attackRange, (hit.collider || hit2.collider) ? Color.red : Color.green, 0.1f);
+        // Debug.DrawRay(transform.position, Vector2.up * attackRange, (hit.collider || hit2.collider) ? Color.red : Color.green, 0.1f);
 
     }
 
     private void AttackDown()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, attackRange, enemyLayer);
+        animator.SetTrigger("AttackDown");
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 2.5f*attackRange, enemyLayer);
 
         // Adjust this force value based on your game's requirements
         float pushForce = 3.5f;
@@ -400,12 +405,19 @@ public class PlayerAttack : MonoBehaviour
         Vector3 rightRaycastOrigin = transform.position + new Vector3(playerCollider.bounds.extents.x, 0f, 0f);
         Vector3 leftRaycastOrigin = transform.position - new Vector3(playerCollider.bounds.extents.x, 0f, 0f);
         Vector3 centerRaycastOrigin = transform.position;
+
+        // Vector3 rightRaycastOrigin2 = transform.position + new Vector3(playerCollider.bounds.extents.x*1.75, 0f, 0f);
+        // Vector3 leftRaycastOrigin2 = transform.position - new Vector3(playerCollider.bounds.extents.x*1.75, 0f, 0f);
+
         // Perform raycasts
         bool rightRaycastHit = Physics2D.Raycast(rightRaycastOrigin, Vector2.down, attackRange, obstacleLayer);
         bool leftRaycastHit = Physics2D.Raycast(leftRaycastOrigin, Vector2.down, attackRange, obstacleLayer);
         bool centerRaycastHit = Physics2D.Raycast(centerRaycastOrigin, Vector2.down, attackRange, obstacleLayer);
 
-        if (rightRaycastHit || leftRaycastHit || centerRaycastHit)
+        // bool rightRaycastHit2 = Physics2D.Raycast(rightRaycastOrigin2, Vector2.down, attackRange, obstacleLayer);
+        // bool leftRaycastHit2 = Physics2D.Raycast(leftRaycastOrigin2, Vector2.down, attackRange, obstacleLayer);
+
+        if (/*rightRaycastHit2 || leftRaycastHit2 ||*/ rightRaycastHit || leftRaycastHit || centerRaycastHit)
         {
             // Debug.Log("hit2.collider: ");
             playerMovement.KnockBack(pushDirection, pushForce);
@@ -419,10 +431,10 @@ public class PlayerAttack : MonoBehaviour
         //     playerMovement.KnockBack(pushDirection, pushForce);
         // }
 
-        // show raycast in the scene view
-        Debug.DrawRay(transform.position, Vector2.down * attackRange, (hit.collider || centerRaycastHit) ? Color.red : Color.green, 0.1f);
-        Debug.DrawRay(rightRaycastOrigin, Vector2.down * attackRange, rightRaycastHit ? Color.red : Color.green, 0.1f);
-        Debug.DrawRay(leftRaycastOrigin, Vector2.down * attackRange, leftRaycastHit ? Color.red : Color.green, 0.1f);
+        // show raycast in the scene view   ESTOS DE AQUI SON PARA VER LOS RAYCASTS EN PANTALLA CON COLOR VERDE O ROJO
+        // Debug.DrawRay(transform.position, Vector2.down * attackRange, (hit.collider || centerRaycastHit) ? Color.red : Color.green, 0.1f);
+        // Debug.DrawRay(rightRaycastOrigin, Vector2.down * attackRange, rightRaycastHit ? Color.red : Color.green, 0.1f);
+        // Debug.DrawRay(leftRaycastOrigin, Vector2.down * attackRange, leftRaycastHit ? Color.red : Color.green, 0.1f);
     }
 
     private IEnumerator AttackCooldown()
