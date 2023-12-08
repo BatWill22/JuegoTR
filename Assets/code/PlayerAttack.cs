@@ -37,6 +37,10 @@ public class PlayerAttack : MonoBehaviour
 
     private bool moves = false;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioSource attackSound;
+    [SerializeField] private AudioSource openDoorSound;
+
     // Add reference to your attack sound effect
     // public AudioClip attackSound;
 
@@ -63,11 +67,10 @@ public class PlayerAttack : MonoBehaviour
             // Trigger the attack animation
             // animator.SetTrigger("Attack");
 
-            // Play attack sound effect
-            // if (attackSound != null)
-            // {
-            //     AudioSource.PlayClipAtPoint(attackSound, transform.position);
-            // }
+            if (attackSound != null)
+            {
+                attackSound.Play();
+            }
 
             // Perform the attack logic based on the facing direction
             if (facingY == 1)

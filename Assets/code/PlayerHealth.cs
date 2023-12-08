@@ -89,7 +89,7 @@ public class PlayerHealth : MonoBehaviour
             if(dash && walljump && doubleJump && redKey && greenKey && blueKey && greenDoorOpen && blueDoorOpen && redDoorOpen && isInFinalZone)
             {
                 transform.position = new Vector3(checkpointCoordinates.x, checkpointCoordinates.y, transform.position.z);
-                
+                animator.SetTrigger("Respawn");
                 // Debug.Log("tp a checkpoint");
             }
             else

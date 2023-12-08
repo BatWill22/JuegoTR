@@ -11,6 +11,11 @@ public class EnemyHealth : MonoBehaviour
     public LayerMask obstacleLayer;
     public Vector2 initialCoordinates;
     private Vector3 hiddenCoordinates;
+    private EnemyMovement enemyMovement;
+    [SerializeField] private Animator animator;
+
+    public float countdownDuration = 0.1f; // Set the duration of the countdown in seconds
+    private float timer;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +25,8 @@ public class EnemyHealth : MonoBehaviour
         hiddenCoordinates = new Vector3(-200, -30, 0);
         enemy = gameObject;
         enemyCollider = GetComponent<Collider2D>();
+        timer = 2;
+        enemyMovement = GetComponent<EnemyMovement>();
     }
 
     // Update is called once per frame
@@ -29,28 +36,57 @@ public class EnemyHealth : MonoBehaviour
         Vector3 leftRaycastOrigin = transform.position - new Vector3(enemyCollider.bounds.extents.x, 0f, 0f);
         Vector3 centerRaycastOrigin = transform.position;
         // Perform raycasts
-        bool rightRaycastHit = Physics2D.Raycast(rightRaycastOrigin, Vector2.down, enemyCollider.bounds.extents.y + 0.01f, obstacleLayer);
-        bool leftRaycastHit = Physics2D.Raycast(leftRaycastOrigin, Vector2.down, enemyCollider.bounds.extents.y + 0.01f, obstacleLayer);
-        bool centerRaycastHit = Physics2D.Raycast(centerRaycastOrigin, Vector2.down, enemyCollider.bounds.extents.y + 0.01f, obstacleLayer);
+        bool rightRaycastHit = Physics2D.Raycast(rightRaycastOrigin, Vector2.down, enemyCollider.bounds.extents.y*1.5f, obstacleLayer);
+        bool leftRaycastHit = Physics2D.Raycast(leftRaycastOrigin, Vector2.down, enemyCollider.bounds.extents.y*1.5f, obstacleLayer);
+        bool centerRaycastHit = Physics2D.Raycast(centerRaycastOrigin, Vector2.down, enemyCollider.bounds.extents.y*1.5f, obstacleLayer);
 
-        if (rightRaycastHit || leftRaycastHit || centerRaycastHit)
+        Debug.DrawRay(rightRaycastOrigin, Vector2.down * (enemyCollider.bounds.extents.y*1.5f), (enemyCollider.IsTouchingLayers(obstacleLayer) || rightRaycastHit) ? Color.green : Color.red);
+        Debug.DrawRay(leftRaycastOrigin, Vector2.down * (enemyCollider.bounds.extents.y*1.5f), (enemyCollider.IsTouchingLayers(obstacleLayer) || leftRaycastHit) ? Color.green : Color.red);
+        Debug.DrawRay(centerRaycastOrigin, Vector2.down * (enemyCollider.bounds.extents.y*1.5f), (enemyCollider.IsTouchingLayers(obstacleLayer) || centerRaycastHit) ? Color.green : Color.red);
+
+        if ((rightRaycastHit || leftRaycastHit || centerRaycastHit) && !(timer <= countdownDuration))
         {
-            Die();
+            Debug.Log("entra en el MUERTEEEE del object");
+            animator.SetTrigger ("Hide");
+            Die2();
         }
+
+        if (timer <= countdownDuration)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0f)
+            {
+                Die();
+            }
+        }
+    }
+
+    private void Die2()
+    {
+        timer = countdownDuration;
+        enemyMovement.EnemyMove(false);
     }
 
     public void GetHit()
     {
+
         currentEnemyHealth--;
         if(currentEnemyHealth <= 0)
         {
-            Die();
+            animator.SetTrigger ("Hide");
+            Die2();
+        }
+        else
+        {
+            animator.SetTrigger ("Hitted");
         }
     }
 
     public void Die()
     {
-        transform.position = hiddenCoordinates;
+        StopAllCoroutines();
+        Destroy(gameObject);
+        // transform.position = hiddenCoordinates;
     }
 
     public void Respawn()
@@ -63,6 +99,8 @@ public class EnemyHealth : MonoBehaviour
             // You might want to set its position to the initial spawn position
             enemy.transform.position = initialCoordinates;
             currentEnemyHealth = maxEnemyHealth;
+            timer = 15;
+            enemyMovement.EnemyMove(true);
             // if (playerHealth != null)
             // {
             //     // Call ActivateDoubleJump function from PlayerHealth script

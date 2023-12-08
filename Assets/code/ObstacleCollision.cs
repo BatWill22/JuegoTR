@@ -9,9 +9,6 @@ public class Obstacle : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
-        
-        animator.SetTrigger("Die");
-
         if (playerHealth != null)
         {
             // Call the TakeDamage function with the desired damage amount
@@ -23,6 +20,7 @@ public class Obstacle : MonoBehaviour
                 PlayerMovement player = collision.gameObject.GetComponent<PlayerMovement>();
                 if (player != null)
                 {
+                    animator.SetTrigger("Die");
                     player.ResetToLastCheckZonePosition(); // Reset to the last ground position
                 }
             }

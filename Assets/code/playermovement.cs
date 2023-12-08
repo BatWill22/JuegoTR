@@ -86,6 +86,9 @@ public class PlayerMovement : MonoBehaviour
     private bool rightRaycastHit;
     private bool leftRaycastHit;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioSource normalWalking;
+
     public void ResetToLastCheckZonePosition()
     {
         hasBeenHit = true;
@@ -519,23 +522,31 @@ public class PlayerMovement : MonoBehaviour
             else //normal walking
             {
                 float horizontalVelocity = horizontalInput * moveSpeed;
-                    if (isWallOnRight)
+                if (isWallOnRight)
+                {
+                    velocity = new Vector2(Mathf.Min(horizontalVelocity, 0f), rb.velocity.y);
+                }
+                else if (isWallOnLeft)
+                {
+                    velocity = new Vector2(Mathf.Max(horizontalVelocity, 0f), rb.velocity.y);
+                }
+                else
+                {
+                    Vector2 movement = new Vector2(horizontalVelocity, rb.velocity.y);
+                    velocity = movement;
+                }
+                if ((horizontalVelocity != 0) && isGrounded)
+                {
+                    if(!normalWalking.isPlaying)
                     {
-                        velocity = new Vector2(Mathf.Min(horizontalVelocity, 0f), rb.velocity.y);
+                        normalWalking.Play();
                     }
-                    else if (isWallOnLeft)
-                    {
-                        velocity = new Vector2(Mathf.Max(horizontalVelocity, 0f), rb.velocity.y);
-                    }
-                    else
-                    {
-                        Vector2 movement = new Vector2(horizontalVelocity, rb.velocity.y);
-                        velocity = movement;
-                        if ((horizontalInput != 0) && isGrounded)
-                        {
-                            // animator.SetBool("isRunning", true);
-                        }
-                    }
+                }
+                else
+                {
+                    // Debug.Log("isGrounded" + isGrounded + " // HorizontalVelocity" + horizontalVelocity);
+                    normalWalking.Stop();
+                }
             }
 
             //oiasohafaousghoagewhwewenhhenjerhjhhjiowhgowjhneogjwbneojbhgwiebgijuwbebgwouebgwiouebhgiwueboiasohafaousghoagewhwewenhhenjerhjhhjiowhgowjhneogjwbneojbhgwiebgijuwbebgwouebgwiouebhgiwueb

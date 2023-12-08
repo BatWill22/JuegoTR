@@ -90,6 +90,15 @@ public class EnemyMovement : MonoBehaviour
             {
                 activateMovement = true;
             }
+
+            if (moveRight)
+            {
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            }
         }
     }
 
