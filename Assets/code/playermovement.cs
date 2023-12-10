@@ -214,7 +214,23 @@ public class PlayerMovement : MonoBehaviour
             }
             bool centerRaycastHit = Physics2D.Raycast(centerRaycastOrigin, Vector2.down, playerCollider.bounds.extents.y*rayLengthFactor, wallLayer);
             // Check if any of the raycasts hit the ground
-            isGrounded = playerCollider.IsTouchingLayers(groundLayer) || (playerCollider.IsTouchingLayers(wallLayer) && (rightRaycastHit || leftRaycastHit || centerRaycastHit /*|| isCheckGrounded*/));
+            isGrounded = /*playerCollider.IsTouchingLayers(groundLayer) || (playerCollider.IsTouchingLayers(wallLayer) &&*/ (rightRaycastHit || leftRaycastHit || centerRaycastHit /*|| isCheckGrounded*/);
+
+            // debug break when is not grounded
+            // if (!isGrounded)
+            // {
+            //     Debug.Log("is not grounded");
+            //     //debug all values that give value to isGrounded
+            //     Debug.Log("playerCollider.IsTouchingLayers(groundLayer): " + playerCollider.IsTouchingLayers(groundLayer));
+            //     Debug.Log("playerCollider.IsTouchingLayers(wallLayer): " + playerCollider.IsTouchingLayers(wallLayer));
+            //     Debug.Log("rightRaycastHit: " + rightRaycastHit);
+            //     Debug.Log("leftRaycastHit: " + leftRaycastHit);
+            //     Debug.Log("centerRaycastHit: " + centerRaycastHit);
+            //     //Debug.Log("isCheckGrounded: " + isCheckGrounded);
+                
+            //     Debug.Break();
+            // }
+                    
             //show lines for raycasts
             Debug.DrawRay(rightRaycastOrigin, Vector2.down * (playerCollider.bounds.extents.y*rayLengthFactor), (playerCollider.IsTouchingLayers(groundLayer) || rightRaycastHit) ? Color.green : Color.red);
             Debug.DrawRay(leftRaycastOrigin, Vector2.down * (playerCollider.bounds.extents.y*rayLengthFactor), (playerCollider.IsTouchingLayers(groundLayer) || leftRaycastHit) ? Color.green : Color.red);
