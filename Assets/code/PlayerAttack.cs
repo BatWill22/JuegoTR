@@ -213,7 +213,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         // show raycast in the scene view
-        // Debug.DrawRay(transform.position, Vector2.right * attackRange, (hit.collider || hit2.collider || hit3.collider) ? Color.red : Color.green, 0.1f);
+        Debug.DrawRay(transform.position, Vector2.right * attackRange, (hit.collider || hit2.collider || hit3.collider) ? Color.red : Color.green, 0.1f);
 
     }
 
@@ -332,7 +332,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         // show raycast in the scene view
-        // Debug.DrawRay(transform.position, Vector2.left * attackRange, (hit.collider || hit2.collider || hit3.collider) ? Color.red : Color.green, 0.1f);
+        Debug.DrawRay(transform.position, Vector2.left * attackRange, (hit.collider || hit2.collider || hit3.collider) ? Color.red : Color.green, 0.1f);
 
     }
 
@@ -372,7 +372,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         // show raycast in the scene view
-        // Debug.DrawRay(transform.position, Vector2.up * attackRange, (hit.collider || hit2.collider) ? Color.red : Color.green, 0.1f);
+        Debug.DrawRay(transform.position, Vector2.up * attackRange, (hit.collider || hit2.collider) ? Color.red : Color.green, 0.1f);
 
     }
 
@@ -435,9 +435,9 @@ public class PlayerAttack : MonoBehaviour
         // }
 
         // show raycast in the scene view   ESTOS DE AQUI SON PARA VER LOS RAYCASTS EN PANTALLA CON COLOR VERDE O ROJO
-        // Debug.DrawRay(transform.position, Vector2.down * attackRange, (hit.collider || centerRaycastHit) ? Color.red : Color.green, 0.1f);
-        // Debug.DrawRay(rightRaycastOrigin, Vector2.down * attackRange, rightRaycastHit ? Color.red : Color.green, 0.1f);
-        // Debug.DrawRay(leftRaycastOrigin, Vector2.down * attackRange, leftRaycastHit ? Color.red : Color.green, 0.1f);
+        Debug.DrawRay(transform.position, Vector2.down * attackRange, (hit.collider || centerRaycastHit) ? Color.red : Color.green, 0.1f);
+        Debug.DrawRay(rightRaycastOrigin, Vector2.down * attackRange, rightRaycastHit ? Color.red : Color.green, 0.1f);
+        Debug.DrawRay(leftRaycastOrigin, Vector2.down * attackRange, leftRaycastHit ? Color.red : Color.green, 0.1f);
     }
 
     private IEnumerator AttackCooldown()
