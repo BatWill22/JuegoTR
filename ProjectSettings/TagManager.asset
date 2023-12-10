@@ -80,6 +80,9 @@ TagManager:
   - name: Main elements
     uniqueID: 1148273641
     locked: 0
+  - name: lava
+    uniqueID: 1383616181
+    locked: 0
   - name: Mapa Delante
     uniqueID: 829030091
     locked: 0
