@@ -489,7 +489,7 @@ public class PlayerMovement : MonoBehaviour
                 // Debug.Log("velocitat:"+rb.velocity.x); 
                 velocity = knockBackVelocity;
             }
-            else if (isTouchingWall && !isGrounded && isWallSliding && !wallJumpCooldownActive && !isDashing) //movement in wallsliding
+            else if (isTouchingWall && !isGrounded && !keepJumping && isWallSliding && !wallJumpCooldownActive && !isDashing) //movement in wallsliding
             {
                 velocity = new Vector2(0f, -wallSlideSpeed);
             }
