@@ -1,10 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] private Animator animator;
+    [SerializeField] private Image healthBar;
     public int maxHealth = 7;
     public int currentHealth;
     public Vector2 respawnCoordinates = new Vector2(0, 1);
@@ -25,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        UpdateHealthBar();
         // dashItemScript = GetComponent<DashItemScript>();
     }
     IEnumerator WaitForTwoSeconds()
@@ -42,6 +45,8 @@ public class PlayerHealth : MonoBehaviour
         if (!invincible)
         {
             currentHealth -= damageAmount;
+            UpdateHealthBar();
+
             // Check if the player's health is below or equal to zero
             if (currentHealth <= 0)
             {
@@ -57,6 +62,12 @@ public class PlayerHealth : MonoBehaviour
                 animator.SetTrigger("GetHurt");
             }
         }
+    }
+
+    private void UpdateHealthBar()
+    {
+        float fillStep = 1f / (float)maxHealth;
+        healthBar.fillAmount = fillStep * currentHealth;
     }
 
     // Public function to increase player's health
@@ -107,6 +118,7 @@ public class PlayerHealth : MonoBehaviour
 
         // Reset the player's health to maximum
         currentHealth = maxHealth;
+        UpdateHealthBar();
 
         // Debug.Log("Player respawned at coordinates: " + respawnCoordinates);
     }
