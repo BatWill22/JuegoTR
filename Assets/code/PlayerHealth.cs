@@ -21,6 +21,9 @@ public class PlayerHealth : MonoBehaviour
     public bool hasHighItem = false;
     private bool isInFinalZone = false;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioSource getHit;
+
     // public DashItemScript dashItemScript;
 
     // Start is called before the first frame update
@@ -44,6 +47,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (!invincible)
         {
+            getHit.Play();
             currentHealth -= damageAmount;
             UpdateHealthBar();
 
@@ -105,7 +109,7 @@ public class PlayerHealth : MonoBehaviour
             }
             else
             {
-                Restart();
+                // Restart();
                 SceneManager.LoadScene("DeathMenu");
                 int coin = PlayerMovement.coinCount;
                 Debug.Log("Coins: " + coin);

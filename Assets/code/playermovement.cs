@@ -88,6 +88,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Sounds")]
     [SerializeField] private AudioSource normalWalking;
+    [SerializeField] private AudioSource jumpSound;
+    [SerializeField] private AudioSource pickUp;
+    [SerializeField] private AudioSource dashSound;
 
     public void ResetToLastCheckZonePosition()
     {
@@ -282,6 +285,7 @@ public class PlayerMovement : MonoBehaviour
             // Activate dash
             if (canDash && Input.GetKeyDown(KeyCode.LeftShift) && !isDashing && dashCooldownTimer <= 0)
             {
+                dashSound.Play();
                 isDashing = true;
                 dashDurationTimer = dashDuration;
                 dashCooldownTimer = dashCooldown;
@@ -293,6 +297,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space)) //When press space down
             {
                 animator.SetTrigger("Jump");
+                jumpSound.Play();
                 if (isGrounded)
                 {
                     velocity2 = new Vector2(rb.velocity.x, jumpForce);
@@ -633,31 +638,55 @@ public class PlayerMovement : MonoBehaviour
     public void ActivateDoubleJump(bool activate)
     {
         canDoubleJump = activate;
+        if (activate)
+        {
+            pickUp.Play();
+        }
     }
 
     public void ActivateDash(bool activate)
     {
         canDash = activate;
+        if (activate)
+        {
+            pickUp.Play();
+        }
     }
 
     public void ActivateWalljump(bool activate)
     {
         canWallJumpAndSlide = activate;
+        if (activate)
+        {
+            pickUp.Play();
+        }
     }
 
     public void ActivateRedKey(bool activate)
     {
         hasRedKey = activate;
+        if (activate)
+        {
+            pickUp.Play();
+        }
     }
 
     public void ActivateGreenKey(bool activate)
     {
         hasGreenKey = activate;
+        if (activate)
+        {
+            pickUp.Play();
+        }
     }
 
     public void ActivateBlueKey(bool activate)
     {
         hasBlueKey = activate;
+        if (activate)
+        {
+            pickUp.Play();
+        }
     }
 
     public void ActivateFinal(bool activate)
@@ -690,6 +719,7 @@ public class PlayerMovement : MonoBehaviour
     {
         coinCount++;
         Debug.Log("Coins: " + coinCount);
+        pickUp.Play();
         // Debug.Log("Es pot moure? " + canMove);
     }
 }

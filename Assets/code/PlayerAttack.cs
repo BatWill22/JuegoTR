@@ -11,7 +11,7 @@ public class PlayerAttack : MonoBehaviour
     // private Animator animator;
     [SerializeField] private Animator animator;
     
-    private float attackRange = 2f; // Set your attack range here
+    private float attackRange = 3.25f; // Set your attack range here
 
     int facingX;
     int facingY;
@@ -39,7 +39,7 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("Sounds")]
     [SerializeField] private AudioSource attackSound;
-    [SerializeField] private AudioSource openDoorSound;
+    [SerializeField] private AudioSource hitSomething;
 
     // Add reference to your attack sound effect
     // public AudioClip attackSound;
@@ -138,6 +138,7 @@ public class PlayerAttack : MonoBehaviour
             if (normalDoor != null)
             {
                 // Debug.Log("normalDoor is not null");
+                hitSomething.Play();
                 normalDoor.OpenDoor();
                 // Debug.Log("Opened the door");
             }
@@ -155,6 +156,7 @@ public class PlayerAttack : MonoBehaviour
                         bool redKey = PlayerMovement.hasRedKey;
                         if (redKey)
                         {
+                            hitSomething.Play();
                             redDoor.OpenDoor();
                         }
                     }
@@ -167,6 +169,7 @@ public class PlayerAttack : MonoBehaviour
                         bool greenKey = PlayerMovement.hasGreenKey;
                         if (greenKey)
                         {
+                            hitSomething.Play();
                             greenDoor.OpenDoor();
                         }
                     }
@@ -179,6 +182,7 @@ public class PlayerAttack : MonoBehaviour
                         bool blueKey = PlayerMovement.hasBlueKey;
                         if (blueKey)
                         {
+                            hitSomething.Play();
                             blueDoor.OpenDoor();
                         }
                     }
@@ -188,6 +192,7 @@ public class PlayerAttack : MonoBehaviour
                     FinalDoorObjectScript finalDoor = hit3.collider.GetComponent<FinalDoorObjectScript>();
                     if (finalDoor != null)
                     {
+                        hitSomething.Play();
                         finalDoor.OpenDoor();
                         ExitDoorObjectScript exitDoor = FindObjectOfType<ExitDoorObjectScript>();
                         if (exitDoor != null)
@@ -266,6 +271,7 @@ public class PlayerAttack : MonoBehaviour
             if (normalDoor != null)
             {
                 // Debug.Log("normalDoor is not null");
+                hitSomething.Play();
                 normalDoor.OpenDoor();
                 // Debug.Log("Opened the door");
             }
@@ -282,6 +288,7 @@ public class PlayerAttack : MonoBehaviour
                         bool redKey = PlayerMovement.hasRedKey;
                         if (redKey)
                         {
+                            hitSomething.Play();
                             redDoor.OpenDoor();
                         }
                     }
@@ -294,6 +301,7 @@ public class PlayerAttack : MonoBehaviour
                         bool greenKey = PlayerMovement.hasGreenKey;
                         if (greenKey)
                         {
+                            hitSomething.Play();
                             greenDoor.OpenDoor();
                         }
                     }
@@ -306,6 +314,7 @@ public class PlayerAttack : MonoBehaviour
                         bool blueKey = PlayerMovement.hasBlueKey;
                         if (blueKey)
                         {
+                            hitSomething.Play();
                             blueDoor.OpenDoor();
                         }
                     }
@@ -315,6 +324,7 @@ public class PlayerAttack : MonoBehaviour
                     FinalDoorObjectScript finalDoor = hit3.collider.GetComponent<FinalDoorObjectScript>();
                     if (finalDoor != null)
                     {
+                        hitSomething.Play();
                         finalDoor.OpenDoor();
                         ExitDoorObjectScript exitDoor = FindObjectOfType<ExitDoorObjectScript>();
                         if (exitDoor != null)
@@ -339,7 +349,7 @@ public class PlayerAttack : MonoBehaviour
     private void AttackUp()
     {
         animator.SetTrigger("AttackUp");
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, 2*attackRange, enemyLayer);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.up, /*2**/attackRange, enemyLayer);
 
         // Adjust this force value based on your game's requirements
         float pushForce = 3.5f;

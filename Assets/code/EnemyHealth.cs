@@ -17,6 +17,9 @@ public class EnemyHealth : MonoBehaviour
     public float countdownDuration = 0.1f; // Set the duration of the countdown in seconds
     private float timer;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioSource enemyHit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -69,7 +72,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void GetHit()
     {
-
+        enemyHit.Play();
         currentEnemyHealth--;
         if(currentEnemyHealth <= 0)
         {
