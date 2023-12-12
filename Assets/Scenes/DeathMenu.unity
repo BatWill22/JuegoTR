@@ -424,7 +424,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -695, y: -36.50003}
-  m_SizeDelta: {x: 100, y: 35}
+  m_SizeDelta: {x: 111, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &410780592
 CanvasRenderer:
@@ -454,7 +454,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: b0f67e61c69dfec4ca39cddda2b548d3, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -630,7 +630,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -695, y: -298.00003}
-  m_SizeDelta: {x: 100, y: 35}
+  m_SizeDelta: {x: 111, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &502451995
 CanvasRenderer:
@@ -653,14 +653,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.48627454, g: 1, b: 0, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.0006210804, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 6116ec5cc1dcabb46ae0438d015e4ba5, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -1355,7 +1355,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 7079719526524744ba10edee709f30c3, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2037,7 +2037,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -695, y: -168.00003}
-  m_SizeDelta: {x: 100, y: 35}
+  m_SizeDelta: {x: 111, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1544898596
 CanvasRenderer:
@@ -2067,7 +2067,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 6116ec5cc1dcabb46ae0438d015e4ba5, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
