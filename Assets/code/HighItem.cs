@@ -7,6 +7,7 @@ public class HighItemScript : MonoBehaviour
     // private Vector3 initialHighItemPosition;
 
     public GameObject highItem;
+    public GameObject coverCloud;
 
     public PlayerHealth playerHealth;
 
@@ -25,6 +26,7 @@ public class HighItemScript : MonoBehaviour
         {
             // Call ActivateHigh function from PlayerMovement script
             other.GetComponent<PlayerHealth>().ActivateHigh(true);
+            Destroy(coverCloud);
             // Destroy the item GameObject
             // Destroy(gameObject);
             // highItem.SetActive(false);
