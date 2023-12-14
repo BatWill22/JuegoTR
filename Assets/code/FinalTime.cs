@@ -22,12 +22,27 @@ public class FinalTime : MonoBehaviour
         int minutes1 = Mathf.FloorToInt(PlayerMovement.elapsedTime / 60);
         int seconds1 = Mathf.FloorToInt(PlayerMovement.elapsedTime % 60);
 
-        elapsedTimeText.text = minutes1 + ":" + seconds1;
+        if (seconds1 < 10)
+        {
+            elapsedTimeText.text = minutes1 + ":0" + seconds1;
+        }
+        else 
+        {
+            elapsedTimeText.text = minutes1 + ":" + seconds1;
+        }
 
         int minutes2 = Mathf.FloorToInt(PlayerMovement.bestTime / 60);
         int seconds2 = Mathf.FloorToInt(PlayerMovement.bestTime % 60);
 
-        bestTimeText.text = minutes2 + ":" + seconds2;
+        if (seconds2 < 10)
+        {
+            bestTimeText.text = minutes2 + ":0" + seconds2;
+        }
+        else 
+        {
+            bestTimeText.text = minutes2 + ":" + seconds2;
+        }
+
         coinText.text = "COINS: x" + PlayerMovement.coinCount;
 
         redKey.enabled = PlayerMovement.hasRedKey;
