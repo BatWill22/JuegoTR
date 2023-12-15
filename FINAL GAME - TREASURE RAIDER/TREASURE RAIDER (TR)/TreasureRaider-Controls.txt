@@ -1,0 +1,14 @@
+Main controls:
+- Move forward: "d"
+- Move backward: "a"
+- Jump: space
+- Attack: left mouse
+- Dash: left shift
+- Look up: "w"
+- Look down: "s"
+
+
+Additional information:
+- you can attack up or down by attacking while looking at the desired direction
+- you can open doors by attacking
+- you can only open red, green or blue doors if you have collected the key of each color
